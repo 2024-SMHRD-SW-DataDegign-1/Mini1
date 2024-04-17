@@ -25,7 +25,9 @@ public class nowCard {
 		return nowCard.get(num);
 	}
 	
-	
+	public ArrayList<Integer> last() {
+		return nowCard;
+	}
 
 	
 	

@@ -1,5 +1,6 @@
 package Mini_1;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,20 +8,108 @@ public class N1_Play extends List {
 	Scanner sc = new Scanner(System.in);
 	Random ran = new Random();
 	
-	nowCard nc = new nowCard();
-	remainCard rc = new remainCard();	
-	
-	nowItem ni = new nowItem();
-	remainItem ri = new remainItem();
-	
 	String selItem="";
+	
+ArrayList<Integer> nowCard= new ArrayList<Integer>();
+	
+	public void ncAdd(int num) {
+		nowCard.add(num);
+	}
+	
+	public void ncAdd(int index, int num) {
+		nowCard.add(index, null);
+	}
 
+	public void ncDel(int num) {
+		nowCard.remove(num);
+	}
+	
+	public int ncLength() {
+		return nowCard.size();
+	}
+
+	public int ncGet(int num) {
+		return nowCard.get(num);
+	}
+	
+	public ArrayList<Integer> ncLast() {
+		return nowCard;
+	}
+	
+ArrayList<String> nowItem= new ArrayList<String>();
+	
+	public void niAdd(String name) {
+		nowItem.add(name);
+	}
+	
+	public void niAdd(int index, String name) {
+		nowItem.add(index, name);
+	}
+
+	public void niDel(int num) {
+		nowItem.remove(num);
+	}
+	
+	public int niLength() {
+		return nowItem.size();
+	}
+
+	public String niGet(int num) {
+		return nowItem.get(num);
+	}
+	
+ArrayList<Integer> remainCard= new ArrayList<Integer>();
+	
+	public void rcAdd(int num) {
+		remainCard.add(num);
+	}
+	
+	public void rcAdd(int index, int num) {
+		remainCard.add(index, null);
+	}
+
+	public void rcDel(int num) {
+		remainCard.remove(num);
+	}
+	
+	public int rcLength() {
+		return remainCard.size();
+	}
+
+	public int rcGet(int num) {
+		return remainCard.get(num);
+	}
+
+ArrayList<Integer> remainItem= new ArrayList<Integer>();
+	
+	public void riAdd(int num) {
+		remainItem.add(num);
+	}
+	
+	public void riAdd(int index, int num) {
+		remainItem.add(index, null);
+	}
+
+	public void riDel(int num) {
+		remainItem.remove(num);
+	}
+	
+	public int riLength() {
+		return remainItem.size();
+	}
+
+	public int riGet(int num) {
+		return remainItem.get(num);
+	}
+	
+	
+	
+	
 	int count=0;
 	int temp = 0;			// 임시 저장 공간
 	int turn = 1;			// 턴 카운트
 
 	int[] tempNum = new int[3];	// 임시 숫자 저장
-	int mid = 0; // 가운데 카드 저장
 	String midName = ""; // 가운데 카드 이름
 
 	
@@ -55,8 +144,8 @@ public class N1_Play extends List {
 		// 뽑은, 남은 카드에 저장
 		
 		for (int i = 0; i < 2; i++) {
-			nc.add(tempNum[i]);
-			rc.del(tempNum[i]);
+			ncAdd(tempNum[i]);
+			rcDel(tempNum[i]);
 			// 현재 카드 리스트에 추가
 			// 남은 카드 리스트에서 삭제
 		}
@@ -65,11 +154,11 @@ public class N1_Play extends List {
 	// 정렬
 	public void arr() {
 		temp = 0;
-		for (int i = 0; i < nc.length() - 1; i++) {
-			for (int j = i + 1; j < nc.length(); j++) {
-				if (nc.get(i)>nc.get(j)) {
-					nc.add(nc.get(i));
-					nc.del(i);
+		for (int i = 0; i < ncLength() - 1; i++) {
+			for (int j = i + 1; j < ncLength(); j++) {
+				if (ncGet(i)>ncGet(j)) {
+					ncAdd(ncGet(i));
+					ncDel(i);
 					j=i;
 				}
 			}
@@ -78,8 +167,8 @@ public class N1_Play extends List {
 	
 	// 현재 카드 출력
 	public void ncNow() {
-		for(int i=0;i<nc.length();i++) {
-			System.out.print(nc.get(i) + "  ");
+		for(int i=0;i<ncLength();i++) {
+			System.out.print(ncGet(i) + "  ");
 		}
 		System.out.println();
 	}
@@ -87,8 +176,8 @@ public class N1_Play extends List {
 	// 현재 장비 출력
 	public void niNow() {
 		System.out.print("현재 장비\t: ");
-		for(int i=0;i<ni.length();i++) {
-			System.out.print(ni.get(i) + "  ");
+		for(int i=0;i<niLength();i++) {
+			System.out.print(niGet(i) + "  ");
 		}
 	}
 	
@@ -98,9 +187,9 @@ public class N1_Play extends List {
 		System.out.print("\n버릴 장비 선택 : ");
 		selItem=sc.next();
 		
-		for(int i=0;i<ni.length();i++) {
-			if(ni.get(i).equals(selItem)) {
-				ni.del(i);
+		for(int i=0;i<niLength();i++) {
+			if(niGet(i).equals(selItem)) {
+				niDel(i);
 			}
 		}
 	}
@@ -117,14 +206,14 @@ public class N1_Play extends List {
 	}
 	
 	// 게임 이용자에게 현재 카드 출력
-	public void ncPrint() {
+	public void ncPrint(int mid) {
 		System.out.print("현재 카드\t: ");
-		for(int i=0;i<nc.length();i++) {
-			if(nc.get(i)==mid) {
-				if(i!=nc.length()&&nc.get(i)==nc.get(i+1)) {
+		for(int i=0;i<ncLength();i++) {
+			if(ncGet(i)==mid) {
+				if(i!=ncLength()&&ncGet(i)==ncGet(i+1)) {
 					System.out.print("0  ");
 				}else {
-					System.out.print(nc.get(i)+"  ");
+					System.out.print(ncGet(i)+"  ");
 				}
 			}else
 				System.out.print("0  ");
@@ -134,134 +223,4 @@ public class N1_Play extends List {
 	
 	
 	
-	
-	// 게임 실행
-	public void tempNum() {
-		rc.add(1);
-		rc.add(1);
-		rc.add(2);
-		rc.add(2);
-		rc.add(3);
-		rc.add(3);
-		rc.add(4);
-		rc.add(4);
-		rc.add(5);
-		rc.add(5);
-		rc.add(6);
-		rc.add(7);
-		rc.add(9);
-
-		ni.add("횃불");
-		ni.add("성배");
-		ni.add("창");
-		ni.add("검");
-		ni.add("갑옷");
-		ni.add("방패");
-		
-		System.out.println("- - - - - turn "+turn+" - - - - -");
-		print();
-		// 카드 세장 뽑기 ( 0, 1, 2번에 )
-		for (int i = 0; i < 3; i++) {
-			tempNum[i] = ran.nextInt(13);
-		}
-
-		// 중복 번호 삭제
-		for (int i = 1; i < 3; i++) {
-			for (int j = 0; j < i; j++) {
-				if (tempNum[i] == tempNum[j]) {
-					tempNum[i] = ran.nextInt(13);
-					j = -1;
-				}
-			}
-		}
-
-		// 뽑은 카드 정보 저장
-		for (int i = 0; i < 3; i++) {
-			nc.add(tempNum[i]); // 카드 저장
-		}
-		
-		// 정렬
-		for (int i = 0; i < 2; i++) {
-			for (int j = i + 1; j < 3; j++) {
-				if (tempNum[i] > tempNum[j]) {
-					temp = tempNum[i];
-					tempNum[i] = tempNum[j];
-					tempNum[j] = temp;
-				}
-			}
-		}
-		mid = cardListNum[tempNum[1]];	//가운데 카드 저장
-		
-		// 뽑은 카드는 카드 리스트에서 삭제
-		
-		for (int i = 0; i < nc.length(); i++) {
-			rc.get(tempNum[i]); // 남은 카드 목록에서 제거
-		}
-		
-		// 현재 카드 확인
-//		System.out.print("\nnc\t: ");
-//		ncNow();
-		
-		
-		// 정렬
-		arr();
-		
-		// 정렬상태 확인
-		System.out.print("\nnc 정렬\t: ");
-		ncNow();
-		
-		mid = nc.get(1);
-		midName = cardListName[tempNum[1]];
-		
-		ncPrint();
-		
-		
-		
-		
-		
-		
-		
-		
-		System.out.print("\n종료 0\t진행 1 >> ");
-		int go=sc.nextInt();
-		while(go == 1 && turn!=4) {
-			turn++;
-			System.out.println("\n- - - - - turn "+turn+" - - - - -");
-			
-			// 카드 두장 뽑기
-			draw(turn);
-			// 현재 카드 확인
-//			System.out.print("nc	: ");
-//			ncNow();
-			
-			// 정렬
-			arr();
-			// 정렬 상태 확인
-			System.out.print("nc 정렬\t: ");
-			ncNow();
-			
-			// 게임 이용자에게 현재 카드 상태 출력
-			ncPrint();
-			
-			// 확률적으로 장비를 잃는 코드
-			delItem();
-			
-			// 5턴이 되면 넘어감
-			if(turn!=4) {
-				System.out.print("\n종료 0\t진행 1 >> ");
-				go=sc.nextInt();
-			}else {
-				System.out.println("\t싸움 시작");
-				go=0;
-			}
-		}
-		
-		
-		
-		
-		
-	
-	
-	}
-
 }
