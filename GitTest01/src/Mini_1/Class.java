@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class N1_Play extends List {
+public class Class {
 	Scanner sc = new Scanner(System.in);
 	Random ran = new Random();
 	

@@ -14,13 +14,7 @@ public class Main {
 		Random ran = new Random();
 		Scanner sc = new Scanner(System.in);
 		
-		nowCard nc = new nowCard();
-		remainCard rc = new remainCard();
-		
-		nowItem ni = new nowItem();
-		remainItem ri = new remainItem();
-		
-		N1_Play fst = new N1_Play();
+		Class fst = new Class();
 		
 		int count=0;
 		int temp = 0;			// 임시 저장 공간
@@ -51,7 +45,7 @@ public class Main {
 		fst.niAdd("방패");
 		
 		System.out.println("- - - - - turn "+turn+" - - - - -");
-		print(fst);
+		fst.print();
 		// 카드 세장 뽑기 ( 0, 1, 2번에 )
 		for (int i = 0; i < 3; i++) {
 			tempNum[i] = ran.nextInt(13);
@@ -139,9 +133,5 @@ public class Main {
 		fst.niNow();
 		
 		
-	}
-	private static void print(List p) {
-		p.print();
-			
 	}
 }
