@@ -11,7 +11,8 @@ Scanner sc = new Scanner(System.in);
 		
 		int turn=1;
 		ArrayList<Integer> card = new ArrayList<Integer>();
-		
+		N1_Play fst=new N1_Play();
+		fst.tempNum();
 
 	}
 	private static void print(List p) {
