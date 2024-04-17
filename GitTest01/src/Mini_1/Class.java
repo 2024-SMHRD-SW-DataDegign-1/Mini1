@@ -5,6 +5,24 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Class {
+	String[] cardList =
+		{ "고블린", "해골전사", "오크", "뱀파이어", "골렘", "사신", "마왕", "드레곤" };
+	
+	String[] cardListName =
+		{ "고블린", "고블린", "해골전사", "해골전사", "오크", "오크",
+				"뱀파이어", "뱀파이어", "골렘", "골렘", "사신", "마왕", "드레곤" };
+	
+	private int hp=3;
+	boolean exi = false;
+	
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
 	Scanner sc = new Scanner(System.in);
 	Random ran = new Random();
 	
@@ -107,7 +125,6 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 	
 	int count=0;
 	int temp = 0;			// 임시 저장 공간
-	int turn = 1;			// 턴 카운트
 
 	int[] tempNum = new int[3];	// 임시 숫자 저장
 	String midName = ""; // 가운데 카드 이름
@@ -131,7 +148,7 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 		System.out.println("\n카드를 두 장 뽑습니다.");
 		for (int i=0; i < 2; i++) {
 			tempNum[i] = ran.nextInt(count);
-			// 카드 두장 뽑기 ( 3, 4에 )
+			// 카드 두장 뽑기
 		}
 		for (int i = 1; i < 2; i++) {
 			if (tempNum[0] == tempNum[1]) {
@@ -144,7 +161,7 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 		// 뽑은, 남은 카드에 저장
 		
 		for (int i = 0; i < 2; i++) {
-			ncAdd(tempNum[i]);
+			ncAdd(rcGet(tempNum[i]));
 			rcDel(tempNum[i]);
 			// 현재 카드 리스트에 추가
 			// 남은 카드 리스트에서 삭제
@@ -210,7 +227,7 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 		System.out.print("현재 카드\t: ");
 		for(int i=0;i<ncLength();i++) {
 			if(ncGet(i)==mid) {
-				if(i!=ncLength()&&ncGet(i)==ncGet(i+1)) {
+				if(i!=ncLength()-1&&ncGet(i)==ncGet(i+1)) {
 					System.out.print("0  ");
 				}else {
 					System.out.print(ncGet(i)+"  ");
@@ -221,6 +238,66 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 		System.out.println();
 	}
 	
+	// 현재 카드(이름으로) 출력
+	public void ncName() {
+		System.out.print("현재 카드\t: ");
+		for(int i=0;i<ncLength();i++) {
+			if(ncGet(i)==1) {
+				System.out.print("1."+cardList[0]+"  ");
+			}else if (ncGet(i)==2) {
+				System.out.print("2."+cardList[1]+"  ");
+			}else if (ncGet(i)==3) {
+				System.out.print("3."+cardList[2]+"  ");
+			}else if (ncGet(i)==4) {
+				System.out.print("4."+cardList[3]+"  ");
+			}else if (ncGet(i)==5) {
+				System.out.print("5."+cardList[4]+"  ");
+			}else if (ncGet(i)==6) {
+				System.out.print("6."+cardList[5]+"  ");
+			}else if (ncGet(i)==7) {
+				System.out.print("7."+cardList[6]+"  ");
+			}else if (ncGet(i)==9) {
+				System.out.print("9."+cardList[7]+"  ");
+			}
+		}
+		System.out.println();
+	}
 	
+	// 갑옷, 방패 효과
+	public int hpPlus() {
+		for(int i=0;i<niLength();i++) {
+			if(niGet(i).equals("갑옷")) {
+				temp=ran.nextInt(3)+3;
+				setHp(getHp()+temp);
+				System.out.println("갑옷 효과로 체력이 "+temp+" 오릅니다.");
+			}
+			if(niGet(i).equals("방패")) {
+				temp=ran.nextInt(3)+3;
+				setHp(getHp()+temp);
+				System.out.println("방패 효과로 체력이 "+temp+" 오릅니다.");
+			}
+		}
+		System.out.print("현재 체력 : "+hp);
+		return hp;
+	}
+	
+	// 전투
+	public void fight(int i, int num) {
+		if(ncGet(i)==num) {
+			for(int j=0;j<niLength();j++) {
+				if(niGet(j).equals("횃불")) {
+					exi=true;
+					continue;
+				}
+			}
+			if(exi==true) {
+				System.out.println("횃불로 고블린을 무찌릅니다");
+			}else {
+				System.out.println("고블린에게 체력이 1 닳습니다");
+				setHp(getHp()-1);
+			}
+		}
+		System.out.println("현재 체력 : "+getHp());
+	}
 	
 }

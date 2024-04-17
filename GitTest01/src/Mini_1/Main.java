@@ -6,7 +6,10 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		String[] cardListName =
+		boolean exi = false;
+		
+		
+		String[] cardListTemp =
 			{ "고블린", "고블린", "해골전사", "해골전사", "오크", "오크",
 					"뱀파이어", "뱀파이어", "골렘", "골렘", "사신", "마왕", "드레곤" };
 		
@@ -16,6 +19,7 @@ public class Main {
 		
 		Class fst = new Class();
 		
+		int hp=3;				// 체력
 		int count=0;
 		int temp = 0;			// 임시 저장 공간
 		int turn = 1;
@@ -35,7 +39,7 @@ public class Main {
 		fst.rcAdd(5);
 		fst.rcAdd(6);
 		fst.rcAdd(7);
-		fst.rcAdd(9);
+		fst.rcAdd(8);
 
 		fst.niAdd("횃불");
 		fst.niAdd("성배");
@@ -63,7 +67,7 @@ public class Main {
 
 		// 뽑은 카드 정보 저장
 		for (int i = 0; i < 3; i++) {
-			fst.ncAdd(tempNum[i]); // 카드 저장
+			fst.ncAdd(fst.rcGet(tempNum[i])); // 카드 저장
 		}
 		
 		// 정렬
@@ -90,7 +94,7 @@ public class Main {
 		fst.ncNow();
 		
 		mid = fst.ncGet(1);
-		midName = cardListName[tempNum[1]];
+		midName = cardListTemp[tempNum[1]];
 		
 		// 게임 이용자에게 현재 카드 출력
 		fst.ncPrint(mid);
@@ -124,14 +128,44 @@ public class Main {
 				System.out.print("\n종료 0\t진행 1 >> ");
 				go=sc.nextInt();
 			}else {
-				System.out.println("\t싸움 시작");
 				go=0;
 			}
 		}
 		
-		fst.ncPrint(mid);
+		System.out.println("\n싸움 시작");
+		
+		// 현재 카드 이름, 보유 장비 출력
+		fst.ncName();
 		fst.niNow();
+		System.out.println();
+		
+		// 방패, 갑옷 보유 시 3~5 hp 증가
+		fst.hpPlus();
+		System.out.println("\n전투를 시작합니다");
+		
+		
+		
+		
+		for(int i=0;i<fst.ncLength();i++) {
+			fst.fight(i,1);
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		System.out.println();
+		
 		
 		
 	}
+	
 }
