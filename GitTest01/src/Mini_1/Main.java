@@ -48,6 +48,9 @@ public class Main {
 		fst.niAdd("갑옷");
 		fst.niAdd("방패");
 		
+		
+		fst.aArt();
+		
 		System.out.println("- - - - - turn "+turn+" - - - - -");
 		fst.print();
 		// 카드 세장 뽑기 ( 0, 1, 2번에 )
