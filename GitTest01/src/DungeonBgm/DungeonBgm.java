@@ -19,7 +19,7 @@ public class DungeonBgm {
 		dungeonBgm.add(new DBgm(compath+"One Piece - Katakuri Theme (HQ Cover) (1).mp3","Katakuri"));
 		
 		
-		System.out.println(dungeonBgm.size());
+		
 		
 		int i = 0;
 		
@@ -27,7 +27,7 @@ public class DungeonBgm {
 			System.out.println("[1] 재생 [2] 정지 [3] 종료");
 			int input = sc.nextInt();
 			if (input==1) {
-				System.out.println("===============BGM 재생-!===============");
+				System.out.println("===============♪BGM 재생-!♪===============");
 				if (mp3.isPlaying()) {
 					mp3.stop();
 				}else {
@@ -44,7 +44,7 @@ public class DungeonBgm {
 						
 					}
 				}else if (input==3) {
-					System.out.println("==========BGM 종료===========");
+					System.out.println("==========♬BGM 종료♬===========");
 					break;
 			}
 			
