@@ -39,7 +39,7 @@ public class Main {
 		fst.rcAdd(5);
 		fst.rcAdd(6);
 		fst.rcAdd(7);
-		fst.rcAdd(8);
+		fst.rcAdd(9);
 
 		fst.niAdd("횃불");
 		fst.niAdd("성배");
@@ -80,11 +80,12 @@ public class Main {
 				}
 			}
 		}
+		
 		mid = fst.ncGet(1);	//가운데 카드 저장
 		
 		// 뽑은 카드는 카드 리스트에서 삭제
-		for (int i = 0; i < fst.ncLength(); i++) {
-			fst.rcGet(tempNum[i]); // 남은 카드 목록에서 제거
+		for (int i = fst.ncLength()-1; i >0; i--) {
+			fst.rcDel(tempNum[i]); // 남은 카드 목록에서 제거
 		}
 
 		fst.arr();
@@ -98,6 +99,8 @@ public class Main {
 		
 		// 게임 이용자에게 현재 카드 출력
 		fst.ncPrint(mid);
+		
+		// ----------------------------------------------------------------- //
 		
 		System.out.print("\n종료 0\t진행 1 >> ");
 		int go=sc.nextInt();
@@ -132,24 +135,45 @@ public class Main {
 			}
 		}
 		
+		
+		// - -------------------------------------------------------- //
+		
+		
 		System.out.println("\n싸움 시작");
 		
 		// 현재 카드 이름, 보유 장비 출력
+		System.out.print("몬스터\t: ");
 		fst.ncName();
+		System.out.print("현재 장비\t: ");
 		fst.niNow();
+		System.out.println();
 		System.out.println();
 		
 		// 방패, 갑옷 보유 시 3~5 hp 증가
 		fst.hpPlus();
-		System.out.println("\n전투를 시작합니다");
+		System.out.println("\n\n전투를 시작합니다\n");
 		
-		
-		
-		
-		for(int i=0;i<fst.ncLength();i++) {
-			fst.fight(i,1);
+		temp = 100;
+		while(fst.getHp()>0&&temp==100) {
+			fst.fight1(1);
+			fst.fight2(2);
+			fst.fight3(3);
+			fst.fight4(4);
+			fst.fight5(5);
+			fst.fight6(6);
+			fst.fight7(7);
+			fst.fight8(8);
+			temp=0;
+		}
+		if(fst.getHp()>0) {
+			System.out.println("던전을 클리어했습니다!");
+			System.out.println("- - - - - - - -");
+			fst.ncName();
+			fst.niNow();
+			System.out.println("");
 			
-			
+		}else{
+			System.out.println("체력이 0 이하가 되어 패배합니다...");
 			
 		}
 		
