@@ -14,8 +14,6 @@ public class DungeonBgm {
 		
 		String compath = "C:\\Users\\smhrd\\Desktop\\JavaStudy\\Musicplayer\\Player\\";
 		
-		
-		
 		ArrayList<DBgm> dungeonBgm = new ArrayList<DBgm>();
 		
 		dungeonBgm.add(new DBgm(compath+"One Piece - Katakuri Theme (HQ Cover) (1).mp3","Katakuri"));
