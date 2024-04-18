@@ -15,7 +15,7 @@ public class Main {
 		String[] cardListTemp =
 			{ "고블린", "고블린", "해골전사", "해골전사", "오크", "오크",
 					"뱀파이어", "뱀파이어", "골렘", "골렘", "사신", "마왕", "드레곤" };
-
+		
 		int temp = 0;			// 임시 저장 공간
 		int turn = 1;
 		int[] tempNum = new int[3];	// 임시 숫자 저장
@@ -103,17 +103,15 @@ public class Main {
 		
 		// ----------------------------------------------------------------- //
 		
-		System.out.print("\n종료 0\t진행 1 >> ");
-		int go=sc.nextInt();
-		while(go == 1 && turn!=4) {
+		System.out.println();
+		fst.goStop();
+
+		while(fst.goGet() != 0) {
 			turn++;
 			System.out.println("\n- - - - - turn "+turn+" - - - - -");
 			
 			// 카드 두장 뽑기
 			fst.draw(turn);
-			// 현재 카드 확인
-//			System.out.print("nc	: ");
-//			ncNow();
 			
 			// 정렬
 			fst.arr();
@@ -128,11 +126,11 @@ public class Main {
 			fst.delItem();
 			
 			// 5턴이 되면 넘어감
-			if(turn!=4) {
-				System.out.print("\n종료 0\t진행 1 >> ");
-				go=sc.nextInt();
+			if(turn!=5) {
+				fst.goStop();
+				System.out.println(fst.goGet());
 			}else {
-				go=0;
+				break;
 			}
 		}
 		
@@ -166,30 +164,7 @@ public class Main {
 		fst.hpPlus();
 		System.out.println("\n\n전투를 시작합니다\n");
 		
-		
-		
 		temp = 100;
-		
-//		while(fst.getHp()>0&&temp==100) {
-//			fst.fight1(1);
-//			System.out.println();
-//			fst.fight2(2);
-//			System.out.println();
-//			fst.fight3(3);
-//			System.out.println();
-//			fst.fight4(4);
-//			System.out.println();
-//			fst.fight5(5);
-//			System.out.println();
-//			fst.fight6(6);
-//			System.out.println();
-//			fst.fight7(7);
-//			System.out.println();
-//			fst.fight8(8);
-//			System.out.println();
-//			temp=0;
-//		}
-		
 		for(int i=0;i<fst.ncLength();i++) {
 			fst.fight1(i);
 			fst.fight2(i);
@@ -201,17 +176,14 @@ public class Main {
 			fst.fight8(i);
 		}
 		
-		
-		
-		
-		
+		// - - - - - - - - - - - - -  - -- - - - - - - -- -- - - -- -- - -- - //
 		
 		if(fst.getHp()>0) {
 			System.out.println("던전을 클리어했습니다!");
 			System.out.println("- - - - - - - -");
-			System.out.print("물리친 몬스터\t: ");
+			System.out.print("잡은 몬스터\t: ");
 			fst.ncName();
-			System.out.println("사용한 장비\t: ");
+			System.out.print("사용한 장비\t: ");
 			fst.niNow();
 			System.out.println("");
 			
@@ -220,9 +192,6 @@ public class Main {
 			System.out.println("체력이 0 이하가 되어 패배합니다...");
 			
 		}
-		
-		
-		System.out.println();
 		
 		
 		

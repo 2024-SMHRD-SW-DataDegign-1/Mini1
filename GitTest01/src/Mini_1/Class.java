@@ -122,7 +122,12 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 	
 	
 	
+	private int go=100;		// 진행, 종료 선택여부 판단
 	
+	public int goGet() {
+		return go;
+	}
+
 	int count=0;
 	int temp = 0;			// 임시 저장 공간
 
@@ -135,6 +140,18 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 		System.out.print("첫 카드 세 장을 뽑습니다.");
 	}
 	
+	// 진행, 종료
+	public void goStop() {
+		System.out.print("종료 0\t진행 1 >> ");
+		go=sc.nextInt();
+		if(go!=0&&go!=1) {
+			while(go!=0&&go!=1) {
+				System.out.print("0이나 1을 입력해주세요 >> ");
+				go=sc.nextInt();
+			}
+		}
+	}
+	
 	// 중복 없이 카드 두장 뽑는 메소드
 	public void draw(int abcde) {
 		if(abcde==2) {
@@ -143,6 +160,8 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 			count=8;
 		}else if (abcde==4) {
 			count=6;
+		}else if (abcde==5) {
+			count=4;
 		}
 		
 		System.out.println("\n카드를 두 장 뽑습니다.");
