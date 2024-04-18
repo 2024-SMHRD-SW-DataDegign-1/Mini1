@@ -84,7 +84,7 @@ public class Main {
 		mid = fst.ncGet(1);	//가운데 카드 저장
 		
 		// 뽑은 카드는 카드 리스트에서 삭제
-		for (int i = fst.ncLength()-1; i >0; i--) {
+		for (int i = fst.ncLength()-1; i >= 0; i--) {
 			fst.rcDel(tempNum[i]); // 남은 카드 목록에서 제거
 		}
 
@@ -154,17 +154,40 @@ public class Main {
 		System.out.println("\n\n전투를 시작합니다\n");
 		
 		temp = 100;
-		while(fst.getHp()>0&&temp==100) {
-			fst.fight1(1);
-			fst.fight2(2);
-			fst.fight3(3);
-			fst.fight4(4);
-			fst.fight5(5);
-			fst.fight6(6);
-			fst.fight7(7);
-			fst.fight8(8);
-			temp=0;
+		
+//		while(fst.getHp()>0&&temp==100) {
+//			fst.fight1(1);
+//			System.out.println();
+//			fst.fight2(2);
+//			System.out.println();
+//			fst.fight3(3);
+//			System.out.println();
+//			fst.fight4(4);
+//			System.out.println();
+//			fst.fight5(5);
+//			System.out.println();
+//			fst.fight6(6);
+//			System.out.println();
+//			fst.fight7(7);
+//			System.out.println();
+//			fst.fight8(8);
+//			System.out.println();
+//			temp=0;
+//		}
+		
+		for(int i=0;i<fst.ncLength();i++) {
+			fst.fight1(i);
+			fst.fight2(i);
+			
+			
 		}
+		
+		
+		
+		
+		
+		
+		
 		if(fst.getHp()>0) {
 			System.out.println("던전을 클리어했습니다!");
 			System.out.println("- - - - - - - -");

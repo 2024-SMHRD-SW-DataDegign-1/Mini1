@@ -206,7 +206,7 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 	// 버릴 장비
 	public void selItem() {
 		
-		System.out.print("\n버릴 장비 선택 : ");
+		System.out.print("\n버릴 장비\t: ");
 		selItem=sc.next();
 		
 		for(int i=0;i<niLength();i++) {
@@ -221,7 +221,7 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 		if(ran.nextInt(2)==1) {
 			System.out.println("\n장비를 잃습니다");
 			// 현재 장비 출력
-			System.out.print("현재 보유중인 장비\t: ");
+			System.out.print("현재 장비\t: ");
 			niNow();
 			// 장비 버리기
 			selItem();
@@ -289,12 +289,10 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 	// 전투 - 고블린
 	public void fight1(int num) {
 		if(getHp()>0) {
-			for(int i=0;i<ncLength();i++) {
-				if(ncGet(i)==num) {
-					for(int j=0;j<niLength();j++) {
-						if(niGet(j).equals("횃불")) {
-							exi=true;
-						}
+			if(ncGet(num)==1) {
+				for(int j=0;j<ncLength();j++) {
+					if(niGet(j).equals("횃불")) {
+						exi=true;
 					}
 					if(exi==true) {
 						System.out.println("횃불로 고블린을 무찌릅니다");
@@ -302,44 +300,51 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 						System.out.println("고블린에게 체력이 1 닳습니다");
 						setHp(getHp()-1);
 					}
+					System.out.println("현재 체력 : "+getHp());
+					System.out.println();
+					exi=false;
+					break;
 				}
 			}
-			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
-			exi=false;
 		}
 	}		
 	
 	// 전투 - 해골전사
 	public void fight2(int num) {
 		if(getHp()>0) {
-			for(int i=0;i<ncLength();i++) {
-				if(ncGet(i)==num) {
-					for(int j=0;j<niLength();j++) {
-						if(niGet(j).equals("횃불")) {
-							exi=true;
-						}
+			if(ncGet(num)==2) {
+				for(int j=0;j<ncLength();j++) {
+					if(niGet(j).equals("횃불")) {
+						exi=true;
 					}
 					if(exi==true) {
 						System.out.println("횃불로 해골전사를 무찌릅니다");
-						continue;
-					}for(int j=0;j<niLength();j++) {
-						if(niGet(j).equals("성배")) {
-							exi=true;
-						}
-					}
-					if(exi==true) {
-						System.out.println("성배로 해골전사를 무찌릅니다");
-					}
-					else {
+					}else {
 						System.out.println("해골전사에게 체력이 2 닳습니다");
 						setHp(getHp()-2);
 					}
+					System.out.println("현재 체력 : "+getHp());
+					System.out.println();
+					exi=false;
+					break;
 				}
+				for(int j=0;j<ncLength();j++) {
+					if(niGet(j).equals("성배")) {
+						exi=true;
+					}
+					if(exi==true) {
+						System.out.println("성배로 해골전사를 무찌릅니다");
+					}else {
+						System.out.println("해골전사에게 체력이 2 닳습니다");
+						setHp(getHp()-2);
+					}
+					System.out.println("현재 체력 : "+getHp());
+					System.out.println();
+					exi=false;
+					break;
+				}
+				
 			}
-			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
-			exi=false;
 		}
 	}
 	
@@ -362,7 +367,6 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 				}
 			}
 			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
 			exi=false;
 		}
 	}
@@ -386,7 +390,6 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 				}
 			}
 			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
 			exi=false;
 		}
 	}
@@ -401,7 +404,6 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 				}
 			}
 			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
 		}
 	}
 	
@@ -423,8 +425,6 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 					}
 				}
 			}
-			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
 			exi=false;
 		}
 	}
@@ -439,7 +439,6 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 				}
 			}
 			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
 		}
 	}
 	
@@ -462,7 +461,6 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 				}
 			}
 			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
 			exi=false;
 		}
 	}
