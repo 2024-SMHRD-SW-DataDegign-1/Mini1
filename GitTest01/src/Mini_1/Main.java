@@ -209,7 +209,9 @@ public class Main {
 		if(fst.getHp()>0) {
 			System.out.println("던전을 클리어했습니다!");
 			System.out.println("- - - - - - - -");
+			System.out.print("물리친 몬스터\t: ");
 			fst.ncName();
+			System.out.println("사용한 장비\t: ");
 			fst.niNow();
 			System.out.println("");
 			
