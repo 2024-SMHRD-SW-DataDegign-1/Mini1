@@ -1,31 +1,32 @@
 package Mini_1;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-		boolean exi = false;
-		
-		
-		String[] cardListTemp =
-			{ "고블린", "고블린", "해골전사", "해골전사", "오크", "오크",
-					"뱀파이어", "뱀파이어", "골렘", "골렘", "사신", "마왕", "드레곤" };
-		
-		
 		Random ran = new Random();
 		Scanner sc = new Scanner(System.in);
 		
 		Class fst = new Class();
 		
-		int hp=3;				// 체력
-		int count=0;
+		String[] cardListTemp =
+			{ "고블린", "고블린", "해골전사", "해골전사", "오크", "오크",
+					"뱀파이어", "뱀파이어", "골렘", "골렘", "사신", "마왕", "드레곤" };
+		
 		int temp = 0;			// 임시 저장 공간
 		int turn = 1;
 		int[] tempNum = new int[3];	// 임시 숫자 저장
 		int mid = 0; // 가운데 카드 저장
 		String midName = ""; // 가운데 카드 이름
+		
+		ArrayList<Integer> monsterList = new ArrayList<Integer>();	// 사냥한 몬스터 종류 반환을 위한 Alist
+		int lastItem = 0;	// 마지막에 보유한 아이템 반환
+		boolean alive=true; // 생사여부 반환
+		
+		
 		
 		fst.rcAdd(1);
 		fst.rcAdd(1);
@@ -39,7 +40,7 @@ public class Main {
 		fst.rcAdd(5);
 		fst.rcAdd(6);
 		fst.rcAdd(7);
-		fst.rcAdd(9);
+		fst.rcAdd(8);
 
 		fst.niAdd("횃불");
 		fst.niAdd("성배");
@@ -47,6 +48,9 @@ public class Main {
 		fst.niAdd("검");
 		fst.niAdd("갑옷");
 		fst.niAdd("방패");
+		
+		
+		fst.aArt();
 		
 		System.out.println("- - - - - turn "+turn+" - - - - -");
 		fst.print();
@@ -84,7 +88,7 @@ public class Main {
 		mid = fst.ncGet(1);	//가운데 카드 저장
 		
 		// 뽑은 카드는 카드 리스트에서 삭제
-		for (int i = fst.ncLength()-1; i >0; i--) {
+		for (int i = fst.ncLength()-1; i >= 0; i--) {
 			fst.rcDel(tempNum[i]); // 남은 카드 목록에서 제거
 		}
 
@@ -102,17 +106,15 @@ public class Main {
 		
 		// ----------------------------------------------------------------- //
 		
-		System.out.print("\n종료 0\t진행 1 >> ");
-		int go=sc.nextInt();
-		while(go == 1 && turn!=4) {
+		System.out.println();
+		fst.goStop();
+
+		while(fst.goGet() != 0) {
 			turn++;
 			System.out.println("\n- - - - - turn "+turn+" - - - - -");
 			
 			// 카드 두장 뽑기
 			fst.draw(turn);
-			// 현재 카드 확인
-//			System.out.print("nc	: ");
-//			ncNow();
 			
 			// 정렬
 			fst.arr();
@@ -127,11 +129,11 @@ public class Main {
 			fst.delItem();
 			
 			// 5턴이 되면 넘어감
-			if(turn!=4) {
-				System.out.print("\n종료 0\t진행 1 >> ");
-				go=sc.nextInt();
+			if(turn!=5) {
+				fst.goStop();
+				System.out.println(fst.goGet());
 			}else {
-				go=0;
+				break;
 			}
 		}
 		
@@ -139,7 +141,16 @@ public class Main {
 		// - -------------------------------------------------------- //
 		
 		
-		System.out.println("\n싸움 시작");
+		System.out.println("\n- - - - - 전투 시작 - - - - -");
+
+		// 잡은 몬스터 리스트 반환을 위해 저장
+		monsterList=fst.nowCard;
+		
+		// 전투 시 보유중이던 아이템 개수 저장
+		lastItem=fst.niLength();
+		
+
+		
 		
 		// 현재 카드 이름, 보유 장비 출력
 		System.out.print("몬스터\t: ");
@@ -149,44 +160,41 @@ public class Main {
 		System.out.println();
 		System.out.println();
 		
+		// 검으로 무찌를 몬스터 선택
+		fst.delMonster();
+				
 		// 방패, 갑옷 보유 시 3~5 hp 증가
 		fst.hpPlus();
 		System.out.println("\n\n전투를 시작합니다\n");
 		
 		temp = 100;
-		while(fst.getHp()>0&&temp==100) {
-			fst.fight1(1);
-			fst.fight2(2);
-			fst.fight3(3);
-			fst.fight4(4);
-			fst.fight5(5);
-			fst.fight6(6);
-			fst.fight7(7);
-			fst.fight8(8);
-			temp=0;
+		for(int i=0;i<fst.ncLength();i++) {
+			fst.fight1(i);
+			fst.fight2(i);
+			fst.fight3(i);
+			fst.fight4(i);
+			fst.fight5(i);
+			fst.fight6(i);
+			fst.fight7(i);
+			fst.fight8(i);
 		}
+		
+		// - - - - - - - - - - - - -  - -- - - - - - - -- -- - - -- -- - -- - //
+		
 		if(fst.getHp()>0) {
 			System.out.println("던전을 클리어했습니다!");
 			System.out.println("- - - - - - - -");
+			System.out.print("잡은 몬스터\t: ");
 			fst.ncName();
+			System.out.print("사용한 장비\t: ");
 			fst.niNow();
 			System.out.println("");
 			
 		}else{
+			alive=false;	// 생사여부 반환을 위해 저장
 			System.out.println("체력이 0 이하가 되어 패배합니다...");
 			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		System.out.println();
 		
 		
 		

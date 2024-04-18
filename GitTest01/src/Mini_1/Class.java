@@ -26,7 +26,7 @@ public class Class {
 	Scanner sc = new Scanner(System.in);
 	Random ran = new Random();
 	
-	String selItem="";
+	String select="";
 	
 ArrayList<Integer> nowCard= new ArrayList<Integer>();
 	
@@ -122,17 +122,85 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 	
 	
 	
+	private int go=100;		// 진행, 종료 선택여부 판단
 	
+	public int goGet() {
+		return go;
+	}
+
 	int count=0;
 	int temp = 0;			// 임시 저장 공간
 
 	int[] tempNum = new int[3];	// 임시 숫자 저장
 	String midName = ""; // 가운데 카드 이름
 
+	public void aArt() {
+		System.out.println(" .----------------.  .----------------.  .-----------------. .----------------.  .----------------.  .----------------.  .-----------------.\r\n"
+				+ "| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |\r\n"
+				+ "| |  ________    | || | _____  _____ | || | ____  _____  | || |    ______    | || |  _________   | || |     ____     | || | ____  _____  | |\r\n"
+				+ "| | |_   ___ `.  | || ||_   _||_   _|| || ||_   \\|_   _| | || |  .' ___  |   | || | |_   ___  |  | || |   .'    `.   | || ||_   \\|_   _| | |\r\n"
+				+ "| |   | |   `. \\ | || |  | |    | |  | || |  |   \\ | |   | || | / .'   \\_|   | || |   | |_  \\_|  | || |  /  .--.  \\  | || |  |   \\ | |   | |\r\n"
+				+ "| |   | |    | | | || |  | '    ' |  | || |  | |\\ \\| |   | || | | |    ____  | || |   |  _|  _   | || |  | |    | |  | || |  | |\\ \\| |   | |\r\n"
+				+ "| |  _| |___.' / | || |   \\ `--' /   | || | _| |_\\   |_  | || | \\ `.___]  _| | || |  _| |___/ |  | || |  \\  `--'  /  | || | _| |_\\   |_  | |\r\n"
+				+ "| | |________.'  | || |    `.__.'    | || ||_____|\\____| | || |  `._____.'   | || | |_________|  | || |   `.____.'   | || ||_____|\\____| | |\r\n"
+				+ "| |              | || |              | || |              | || |              | || |              | || |              | || |              | |\r\n"
+				+ "| '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |\r\n"
+				+ " .----------------.  .----------------.  '----------------'  '----------------'  '----------------'  '----------------'  '----------------' \r\n"
+				+ "| .--------------. || .--------------. |                                                                                                    \r\n"
+				+ "| |     ____     | || |  _________   | |                                                                                                    \r\n"
+				+ "| |   .'    `.   | || | |_   ___  |  | |                                                                                                    \r\n"
+				+ "| |  /  .--.  \\  | || |   | |_  \\_|  | |                                                                                                    \r\n"
+				+ "| |  | |    | |  | || |   |  _|      | |                                                                                                    \r\n"
+				+ "| |  \\  `--'  /  | || |  _| |_       | |                                                                                                    \r\n"
+				+ "| |   `.____.'   | || | |_____|      | |                                                                                                    \r\n"
+				+ "| |              | || |              | |                                                                                                    \r\n"
+				+ "| '--------------' || '--------------' |                                                                                                    \r\n"
+				+ " .----------------.  .----------------.  .-----------------. .----------------.  .----------------.  .----------------.                     \r\n"
+				+ "| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |                    \r\n"
+				+ "| | ____    ____ | || |      __      | || | ____  _____  | || |  ________    | || |     ____     | || | ____    ____ | |                    \r\n"
+				+ "| ||_   \\  /   _|| || |     /  \\     | || ||_   \\|_   _| | || | |_   ___ `.  | || |   .'    `.   | || ||_   \\  /   _|| |                    \r\n"
+				+ "| |  |   \\/   |  | || |    / /\\ \\    | || |  |   \\ | |   | || |   | |   `. \\ | || |  /  .--.  \\  | || |  |   \\/   |  | |                    \r\n"
+				+ "| |  | |\\  /| |  | || |   / ____ \\   | || |  | |\\ \\| |   | || |   | |    | | | || |  | |    | |  | || |  | |\\  /| |  | |                    \r\n"
+				+ "| | _| |_\\/_| |_ | || | _/ /    \\ \\_ | || | _| |_\\   |_  | || |  _| |___.' / | || |  \\  `--'  /  | || | _| |_\\/_| |_ | |                    \r\n"
+				+ "| ||_____||_____|| || ||____|  |____|| || ||_____|\\____| | || | |________.'  | || |   `.____.'   | || ||_____||_____|| |                    \r\n"
+				+ "| |              | || |              | || |              | || |              | || |              | || |              | |                    \r\n"
+				+ "| '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |                    \r\n"
+				+ " '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'         ");
+		System.out.println();
+		System.out.println(" .----------------.  .----------------.  .----------------.  .----------------.   .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------. \r\n"
+				+ "| .--------------. || .--------------. || .--------------. || .--------------. | | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |\r\n"
+				+ "| |    ______    | || |      __      | || | ____    ____ | || |  _________   | | | |    _______   | || |  _________   | || |  _______     | || |      __      | || |  _________   | || |              | |\r\n"
+				+ "| |  .' ___  |   | || |     /  \\     | || ||_   \\  /   _|| || | |_   ___  |  | | | |   /  ___  |  | || | |  _   _  |  | || | |_   __ \\    | || |     /  \\     | || | |  _   _  |  | || |      _       | |\r\n"
+				+ "| | / .'   \\_|   | || |    / /\\ \\    | || |  |   \\/   |  | || |   | |_  \\_|  | | | |  |  (__ \\_|  | || | |_/ | | \\_|  | || |   | |__) |   | || |    / /\\ \\    | || | |_/ | | \\_|  | || |     | |      | |\r\n"
+				+ "| | | |    ____  | || |   / ____ \\   | || |  | |\\  /| |  | || |   |  _|  _   | | | |   '.___`-.   | || |     | |      | || |   |  __ /    | || |   / ____ \\   | || |     | |      | || |     | |      | |\r\n"
+				+ "| | \\ `.___]  _| | || | _/ /    \\ \\_ | || | _| |_\\/_| |_ | || |  _| |___/ |  | | | |  |`\\____) |  | || |    _| |_     | || |  _| |  \\ \\_  | || | _/ /    \\ \\_ | || |    _| |_     | || |     | |      | |\r\n"
+				+ "| |  `._____.'   | || ||____|  |____|| || ||_____||_____|| || | |_________|  | | | |  |_______.'  | || |   |_____|    | || | |____| |___| | || ||____|  |____|| || |   |_____|    | || |     |_|      | |\r\n"
+				+ "| |              | || |              | || |              | || |              | | | |              | || |              | || |              | || |              | || |              | || |     (_)      | |\r\n"
+				+ "| '--------------' || '--------------' || '--------------' || '--------------' | | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |\r\n"
+				+ " '----------------'  '----------------'  '----------------'  '----------------'   '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------' \r\n"
+				+ "\r\n"
+				+ "\r\n"
+				+ "");
+		
+		
+	}
+	
 	
 	
 	public void print() {
 		System.out.print("첫 카드 세 장을 뽑습니다.");
+	}
+	
+	// 진행, 종료
+	public void goStop() {
+		System.out.print("종료 0\t진행 1 >> ");
+		go=sc.nextInt();
+		if(go!=0&&go!=1) {
+			while(go!=0&&go!=1) {
+				System.out.print("0이나 1을 입력해주세요 >> ");
+				go=sc.nextInt();
+			}
+		}
 	}
 	
 	// 중복 없이 카드 두장 뽑는 메소드
@@ -143,6 +211,8 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 			count=8;
 		}else if (abcde==4) {
 			count=6;
+		}else if (abcde==5) {
+			count=4;
 		}
 		
 		System.out.println("\n카드를 두 장 뽑습니다.");
@@ -204,13 +274,13 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 	}
 	
 	// 버릴 장비
-	public void selItem() {
+	public void select() {
 		
-		System.out.print("\n버릴 장비 선택 : ");
-		selItem=sc.next();
+		System.out.print("\n버릴 장비\t: ");
+		select=sc.next();
 		
 		for(int i=0;i<niLength();i++) {
-			if(niGet(i).equals(selItem)) {
+			if(niGet(i).equals(select)) {
 				niDel(i);
 			}
 		}
@@ -221,10 +291,10 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 		if(ran.nextInt(2)==1) {
 			System.out.println("\n장비를 잃습니다");
 			// 현재 장비 출력
-			System.out.print("현재 보유중인 장비\t: ");
+			System.out.print("현재 장비\t: ");
 			niNow();
 			// 장비 버리기
-			selItem();
+			select();
 		}
 	}
 	
@@ -286,15 +356,46 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 		return hp;
 	}
 	
+	// 용사의 검으로 없앨 몬스터 선택
+	public void delMonster() {
+		for(int i=0;i<niLength();i++) {
+			if(niGet(i).equals("검")) {
+				System.out.print("용사의 검이 있습니다. 무찌를 몬스터를 정해주세요 : ");
+				select=sc.next();
+				if(select.equals("고블린")) {
+					temp=1;
+				}else if(select.equals("해골전사")) {
+					temp=2;
+				}else if(select.equals("오크")) {
+					temp=3;
+				}else if(select.equals("뱀파이어")) {
+					temp=4;
+				}else if(select.equals("골렘")) {
+					temp=5;
+				}else if(select.equals("사신")) {
+					temp=6;
+				}else if(select.equals("마왕")) {
+					temp=7;
+				}else if(select.equals("드래곤")) {
+					temp=8;
+				}
+				for(int j=ncLength()-1;j>=0;j--) {
+					if(ncGet(j)==temp) {
+						ncDel(j);
+						
+					}
+				}
+			}
+		}
+	}
+	
 	// 전투 - 고블린
 	public void fight1(int num) {
 		if(getHp()>0) {
-			for(int i=0;i<ncLength();i++) {
-				if(ncGet(i)==num) {
-					for(int j=0;j<niLength();j++) {
-						if(niGet(j).equals("횃불")) {
-							exi=true;
-						}
+			if(ncGet(num)==1) {
+				for(int j=0;j<niLength();j++) {
+					if(niGet(j).equals("횃불")) {
+						exi=true;
 					}
 					if(exi==true) {
 						System.out.println("횃불로 고블린을 무찌릅니다");
@@ -302,168 +403,172 @@ ArrayList<Integer> remainItem= new ArrayList<Integer>();
 						System.out.println("고블린에게 체력이 1 닳습니다");
 						setHp(getHp()-1);
 					}
+					exi=false;
+					break;
 				}
+				System.out.println("현재 체력 : "+getHp());
+				System.out.println();
 			}
-			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
-			exi=false;
 		}
 	}		
 	
 	// 전투 - 해골전사
 	public void fight2(int num) {
+		boolean exi1=false;
+		boolean exi2=false;
 		if(getHp()>0) {
-			for(int i=0;i<ncLength();i++) {
-				if(ncGet(i)==num) {
-					for(int j=0;j<niLength();j++) {
-						if(niGet(j).equals("횃불")) {
-							exi=true;
-						}
+			if(ncGet(num)==2) {
+				for(int j=0;j<niLength();j++) {
+					if(niGet(j).equals("횃불")) {
+						exi=true;
 					}
 					if(exi==true) {
 						System.out.println("횃불로 해골전사를 무찌릅니다");
-						continue;
-					}for(int j=0;j<niLength();j++) {
-						if(niGet(j).equals("성배")) {
-							exi=true;
-						}
-					}
-					if(exi==true) {
-						System.out.println("성배로 해골전사를 무찌릅니다");
-					}
-					else {
-						System.out.println("해골전사에게 체력이 2 닳습니다");
-						setHp(getHp()-2);
+						break;
 					}
 				}
+				for(int j=0;j<niLength();j++) {
+					if(!niGet(j).equals("횃불")&&niGet(j).equals("성배")&&exi!=true) {
+						exi1=true;
+					}
+					if(exi1==true) {
+						System.out.println("성배로 해골전사를 무찌릅니다");
+						break;
+					}
+				}
+				for(int j=0;j<niLength();j++) {
+					if(!niGet(j).equals("횃불")&&!niGet(j).equals("성배")&&exi!=true&&exi1!=true) {
+						exi2=true;
+					}
+					if(exi2==true) {
+						System.out.println("해골전사에게 체력이 2 닳습니다");
+						setHp(getHp()-2);
+						break;
+					}
+				}
+				exi=false;
+				exi1=false;
+				exi2=false;
+				
+				System.out.println("현재 체력 : "+getHp());
+				System.out.println();
 			}
-			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
-			exi=false;
 		}
 	}
 	
 	// 전투 - 오크
 	public void fight3(int num) {
 		if(getHp()>0) {
-			for(int i=0;i<ncLength();i++) {
-				if(ncGet(i)==num) {
-					for(int j=0;j<niLength();j++) {
-						if(niGet(j).equals("횃불")) {
-							exi=true;
-						}
+			if(ncGet(num)==3) {
+				for(int j=0;j<niLength();j++) {
+					if(niGet(j).equals("횃불")) {
+						exi=true;
 					}
 					if(exi==true) {
 						System.out.println("횃불로 오크를 무찌릅니다");
-					} else {
+					}else {
 						System.out.println("오크에게 체력이 3 닳습니다");
 						setHp(getHp()-3);
 					}
+					exi=false;
+					break;
 				}
+				System.out.println("현재 체력 : "+getHp());
+				System.out.println();
 			}
-			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
-			exi=false;
 		}
 	}
 	
 	// 전투 - 뱀파이어
 	public void fight4(int num) {
 		if(getHp()>0) {
-			for(int i=0;i<ncLength();i++) {
-				if(ncGet(i)==num) {
-					for(int j=0;j<niLength();j++) {
-						if(niGet(j).equals("성배")) {
-							exi=true;
-						}
+			if(ncGet(num)==4) {
+				for(int j=0;j<niLength();j++) {
+					if(niGet(j).equals("성배")) {
+						exi=true;
 					}
 					if(exi==true) {
 						System.out.println("성배로 뱀파이어를 무찌릅니다");
-					} else {
+					}else {
 						System.out.println("뱀파이어에게 체력이 4 닳습니다");
-						setHp(getHp()-4);
+						setHp(getHp()-1);
 					}
+					exi=false;
+					break;
 				}
+				System.out.println("현재 체력 : "+getHp());
+				System.out.println();
 			}
-			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
-			exi=false;
 		}
 	}
 	
 	// 전투 - 골렘
 	public void fight5(int num) {
 		if(getHp()>0) {
-			for(int i=0;i<ncLength();i++) {
-				if(ncGet(i)==num) {
-					System.out.println("골렘에게 체력이 5 닳습니다");
-					setHp(getHp()-5);
-				}
+			if(ncGet(num)==5) {
+				System.out.println("골렘에게 체력이 5 닳습니다");
+				setHp(getHp()-5);
+				System.out.println("현재 체력 : "+getHp());
+				System.out.println();
 			}
-			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
 		}
 	}
 	
 	// 전투 - 사신
 	public void fight6(int num) {
 		if(getHp()>0) {
-			for(int i=0;i<ncLength();i++) {
-				if(ncGet(i)==num) {
-					for(int j=0;j<niLength();j++) {
-						if(niGet(j).equals("성배")) {
-							exi=true;
-						}
+			if(ncGet(num)==6) {
+				for(int j=0;j<niLength();j++) {
+					if(niGet(j).equals("성배")) {
+						exi=true;
 					}
 					if(exi==true) {
 						System.out.println("성배로 사신을 무찌릅니다");
-					} else {
+					}else {
 						System.out.println("사신에게 체력이 6 닳습니다");
 						setHp(getHp()-6);
 					}
+					exi=false;
+					break;
 				}
+				System.out.println("현재 체력 : "+getHp());
+				System.out.println();
 			}
-			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
-			exi=false;
 		}
 	}
 	
 	// 전투 - 마왕
 	public void fight7(int num) {
 		if(getHp()>0) {
-			for(int i=0;i<ncLength();i++) {
-				if(ncGet(i)==num) {
-					System.out.println("마왕에게 체력이 7 닳습니다");
-					setHp(getHp()-7);
-				}
+			if(ncGet(num)==7) {
+				System.out.println("마왕에게 체력이 7 닳습니다");
+				setHp(getHp()-7);
+				System.out.println("현재 체력 : "+getHp());
+				System.out.println();
 			}
-			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
 		}
 	}
 	
 	// 전투 - 드래곤
 	public void fight8(int num) {
 		if(getHp()>0) {
-			for(int i=0;i<ncLength();i++) {
-				if(ncGet(i)==num) {
-					for(int j=0;j<niLength();j++) {
-						if(niGet(j).equals("창")) {
-							exi=true;
-						}
+			if(ncGet(num)==8) {
+				for(int j=0;j<niLength();j++) {
+					if(niGet(j).equals("창")) {
+						exi=true;
 					}
 					if(exi==true) {
 						System.out.println("창으로 드래곤을 무찌릅니다");
-					} else {
+					}else {
 						System.out.println("드래곤에게 체력이 9 닳습니다");
 						setHp(getHp()-9);
 					}
+					exi=false;
+					break;
 				}
+				System.out.println("현재 체력 : "+getHp());
+				System.out.println();
 			}
-			System.out.println("현재 체력 : "+getHp());
-			System.out.println();
-			exi=false;
 		}
 	}
 	
