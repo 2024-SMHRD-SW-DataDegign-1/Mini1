@@ -14,6 +14,8 @@ public class DungeonBgm {
 		
 		String compath = "C:\\Users\\smhrd\\Desktop\\JavaStudy\\Musicplayer\\Player\\";
 		
+		
+		
 		ArrayList<DBgm> dungeonBgm = new ArrayList<DBgm>();
 		
 		dungeonBgm.add(new DBgm(compath+"One Piece - Katakuri Theme (HQ Cover) (1).mp3","Katakuri"));
@@ -29,6 +31,7 @@ public class DungeonBgm {
 				System.out.println("===============♬BGM 재생-!♬===============");
 				if (mp3.isPlaying()) {
 					mp3.stop();
+					
 				}else {
 					mp3.play(dungeonBgm.get(i).getPath());
 					System.out.println(dungeonBgm.get(i).getTitle()+" 재생 중 입니다.");
@@ -44,6 +47,7 @@ public class DungeonBgm {
 					}
 				}else if (input==3) {
 					System.out.println("==========♬BGM 종료♬===========");
+					mp3.stop();
 					break;
 			}
 			
