@@ -254,7 +254,7 @@ public class Game extends List {
 		do {
 			if (!(tempString.equals("횃불") || tempString.equals("성배") || tempString.equals("창") || tempString.equals("검")
 					|| tempString.equals("갑옷") || tempString.equals("방패"))) {
-				System.out.print("없는 장비잆니다. 다시 선택해 주세요 : ");
+				System.out.print("없는 장비입니다. 다시 선택해 주세요 : ");
 				tempString = sc.next();
 				tempBool = true;
 			} else if (riLength() == 0) {
@@ -262,7 +262,7 @@ public class Game extends List {
 			} else if (riLength() != 0) {
 				for (int i = 0; i < riLength(); i++) {
 					if (tempString.equals(riGet(i))) {
-						System.out.print("없는 장비잆니다. 다시 선택해 주세요 : ");
+						System.out.print("없는 장비입니다. 다시 선택해 주세요 : ");
 						tempString = sc.next();
 						i = -1;
 					}
