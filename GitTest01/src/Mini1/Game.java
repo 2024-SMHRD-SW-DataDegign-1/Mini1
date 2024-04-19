@@ -14,9 +14,11 @@ public class Game extends List {
 	private int[] tempArray = new int[3]; // 임시 숫자 저장
 
 	private int hp = 3;
+
 	public int getHp() {
 		return hp;
 	}
+
 	public void setHp(int hp) {
 		this.hp = hp;
 	}
@@ -295,45 +297,43 @@ public class Game extends List {
 	}
 
 	// 장비 선택 삭제
-	public void selItem() {
-		System.out.println("보유한 장비가 적을 수록 점수 획득에 유리합니다.");
-		System.out.println("6개 : 점수 1배\t3개 : 점수 4배");
-		System.out.println("5개 : 점수 2배\t2개 : 점수 5배");
-		System.out.println("4개 : 점수 3배\t1개 : 점수 6배");
-		System.out.print("현재 장비\t : ");
-		niNow();
-		System.out.print("\n\n그냥 진행한다 : 0\t장비를 버린다 : 1 >> ");
-		tempString = sc.next();
-		if (!tempString.equals("0") && !tempString.equals("1")) {
-			while (!tempString.equals("0") && !tempString.equals("1")) {
-				System.out.print("0이나 1을 입력해주세요 >> ");
-				tempString = sc.next();
-			}
-		}
-		if (tempString.equals("1")) {
-			System.out.print("버릴 아이템 수를 입력해주세요 >> ");
-			try {
-				temp = sc.nextInt();
-				while (temp <= 0 || temp > niLength()) {
-					System.out.print("버릴 수 있는 아이템 수에서 입력해주세요 >> ");
-					temp = sc.nextInt();
-				}
-				System.out.println();
-				ncPrint(mid);
-				// 장비 설명 출력
-				itemInfo();
-				for (int i = 0; i < temp; i++) {
-					System.out.print("현재 장비\t: ");
-					niNow();
-					System.out.println();
-					delItem0();
-				}
-			} catch (Exception e) {
-			}
-		}
-		temp = 0;
-		System.out.println();
-	}
+	   public void selItem() {
+	      System.out.println("보유한 장비가 적을 수록 점수 획득에 유리합니다.");
+	      System.out.println("6개 : 점수 1배\t3개 : 점수 4배");
+	      System.out.println("5개 : 점수 2배\t2개 : 점수 5배");
+	      System.out.println("4개 : 점수 3배\t1개 : 점수 6배");
+	      System.out.print("현재 장비\t : ");
+	      niNow();
+	      System.out.print("\n\n그냥 진행한다 : 0\t장비를 버린다 : 1 >> ");
+	      temp = sc.nextInt();
+	      if (temp != 0 && temp != 1) {
+	         while (temp != 0 && temp != 1) {
+	            System.out.print("0이나 1을 입력해주세요 >> ");
+	            temp = sc.nextInt();
+	         }
+	      }
+	      if(temp==1) {
+	         System.out.print("버릴 아이템 수를 입력해주세요 >> ");
+	         temp = sc.nextInt();
+	         while (temp<=0||temp>niLength()) {
+	            System.out.print("버릴 수 있는 아이템 수에서 입력해주세요 >> ");
+	            temp=sc.nextInt();
+	         }
+	         System.out.println();
+	         ncPrint(mid);
+	         // 장비 설명 출력
+	         itemInfo();
+	         for(int i=0;i<temp;i++) {
+	            System.out.print("현재 장비\t: ");
+	            niNow();
+	            System.out.println();
+	            delItem0();
+	         }
+	      }
+	      temp=0;
+	      System.out.println();
+	   }
+
 
 	// 게임 이용자에게 현재 카드 출력
 	public void ncPrint(int mid) {
@@ -395,6 +395,7 @@ public class Game extends List {
 
 	// 용사의 검으로 없앨 몬스터 선택
 	public void delMonster() {
+		tempString = "";
 		for (int i = 0; i < niLength(); i++) {
 			if (niGet(i).equals("검")) {
 				System.out.print("용사의 검이 있습니다. 무찌를 몬스터를 정해주세요 : ");
@@ -452,123 +453,124 @@ public class Game extends List {
 	}
 
 	// 전투 메소드
-	public void fight(int num, int i, String temName, String monName) {
-		if (getHp() > 0) {
-			if (ncGet(num) == i) {
-				for (int j = 0; j < niLength(); j++) {
-					if (niGet(j).equals(temName)) {
-						tempBool = true;
-					}
-					if (tempBool == true) {
-						System.out.println(temName + "(으)로 " + monName + "을(를) 무찌릅니다");
-						break;
-					} else if (tempBool == false && j == niLength() - 1) {
-						if (i != 8) {
-							System.out.println(monName + "에게 체력이 " + i + " 닳습니다");
-							setHp(getHp() - i);
-						} else {
-							System.out.println(monName + "에게 체력이 " + i + 1 + " 닳습니다");
-							setHp(getHp() - (i + 1));
-						}
-					}
-				}
-				tempBool = false;
-				System.out.println("현재 체력 : " + getHp());
-			}
-		}
-	}
+	   public void fight(int num, int i, String temName, String monName) {
+	      if (getHp() > 0) {
+	         if (ncGet(num) == i) {
+	            for (int j = 0; j < niLength(); j++) {
+	               if (niGet(j).equals(temName)) {
+	                  tempBool = true;
+	               }
+	               if (tempBool == true) {
+	                  System.out.println(temName + "(으)로 "+monName+"을(를) 무찌릅니다");
+	                  break;
+	               } else if (tempBool == false && j == niLength() - 1) {
+	                  if(i!=8) {
+	                     System.out.println(monName+"에게 체력이 "+i+" 닳습니다");
+	                     setHp(getHp() - i);
+	                  }else {
+	                     System.out.println(monName+"에게 체력이 "+(i+1)+" 닳습니다");
+	                     setHp(getHp() - (i+1));
+	                  }
+	               }
+	            }
+	            tempBool = false;
+	            System.out.println("현재 체력 : " + getHp());
+	            System.out.println();
+	         }
+	      }
+	   }
+	   
+	   // 전투 메소드 2
+	   public void fight(int num, int i, String monName) {
+	      if (getHp() > 0) {
+	         if (ncGet(num) == i) {
+	            System.out.println(monName+"에게 체력이 5 닳습니다");
+	            setHp(getHp() - i);
+	            System.out.println("현재 체력 : " + getHp());
+	            System.out.println();
+	         }
+	      }
+	   }
+	   
+	   // 전투 - 고블린
+	   public void fight1(int num) {
+	      fight(num, 1, "횃불", "고블린");
+	   }
 
-	// 전투 메소드 2
-	public void fight(int num, int i, String monName) {
-		if (getHp() > 0) {
-			if (ncGet(num) == i) {
-				System.out.println(monName + "에게 체력이 5 닳습니다");
-				setHp(getHp() - i);
-				System.out.println("현재 체력 : " + getHp());
-				System.out.println();
-			}
-		}
-	}
+	   // 전투 - 해골전사
+	   public void fight2(int num) {
+	      boolean tempBool1 = false;
+	      boolean tempBool2 = false;
+	      if (getHp() > 0) {
+	         if (ncGet(num) == 2) {
+	            for (int j = 0; j < niLength(); j++) {
+	               if (niGet(j).equals("횃불")) {
+	                  tempBool = true;
+	               }
+	               if (tempBool == true) {
+	                  System.out.println("횃불(으)로 해골전사을(를) 무찌릅니다");
+	                  break;
+	               }
+	            }
+	            for (int j = 0; j < niLength(); j++) {
+	               if (!niGet(j).equals("횃불") && niGet(j).equals("성배") && tempBool != true) {
+	                  tempBool1 = true;
+	               }
+	               if (tempBool1 == true) {
+	                  System.out.println("성배(으)로 해골전사을(를) 무찌릅니다");
+	                  break;
+	               }
+	            }
+	            for (int j = 0; j < niLength(); j++) {
+	               if (!niGet(j).equals("횃불") && !niGet(j).equals("성배") && tempBool != true && tempBool1 != true
+	                     && j == niLength() - 1) {
+	                  tempBool2 = true;
+	               }
+	               if (tempBool2 == true) {
+	                  System.out.println("해골전사에게 체력이 2 닳습니다");
+	                  setHp(getHp() - 2);
+	                  break;
+	               }
+	            }
+	            tempBool = false;
+	            tempBool1 = false;
+	            tempBool2 = false;
 
-	// 전투 - 고블린
-	public void fight1(int num) {
-		fight(num, 1, "횃불", "고블린");
-	}
+	            System.out.println("현재 체력 : " + getHp());
+	            System.out.println();
+	         }
+	      }
+	   }
 
-	// 전투 - 해골전사
-	public void fight2(int num) {
-		boolean tempBool1 = false;
-		boolean tempBool2 = false;
-		if (getHp() > 0) {
-			if (ncGet(num) == 2) {
-				for (int j = 0; j < niLength(); j++) {
-					if (niGet(j).equals("횃불")) {
-						tempBool = true;
-					}
-					if (tempBool == true) {
-						System.out.println("횃불(으)로 해골전사을(를) 무찌릅니다");
-						break;
-					}
-				}
-				for (int j = 0; j < niLength(); j++) {
-					if (!niGet(j).equals("횃불") && niGet(j).equals("성배") && tempBool != true) {
-						tempBool1 = true;
-					}
-					if (tempBool1 == true) {
-						System.out.println("성배(으)로 해골전사을(를) 무찌릅니다");
-						break;
-					}
-				}
-				for (int j = 0; j < niLength(); j++) {
-					if (!niGet(j).equals("횃불") && !niGet(j).equals("성배") && tempBool != true && tempBool1 != true
-							&& j == niLength() - 1) {
-						tempBool2 = true;
-					}
-					if (tempBool2 == true) {
-						System.out.println("해골전사에게 체력이 2 닳습니다");
-						setHp(getHp() - 2);
-						break;
-					}
-				}
-				tempBool = false;
-				tempBool1 = false;
-				tempBool2 = false;
+	   // 전투 - 오크
+	   public void fight3(int num) {
+	      fight(num, 3, "횃불", "오크");
+	   }
 
-				System.out.println("현재 체력 : " + getHp());
-				System.out.println();
-			}
-		}
-	}
+	   // 전투 - 뱀파이어
+	   public void fight4(int num) {
+	      fight(num, 4, "성배", "뱀파이어");
+	   }
 
-	// 전투 - 오크
-	public void fight3(int num) {
-		fight(num, 3, "횃불", "오크");
-	}
+	   // 전투 - 골렘
+	   public void fight5(int num) {
+	      fight(num, 5, "골렘");
+	   }
 
-	// 전투 - 뱀파이어
-	public void fight4(int num) {
-		fight(num, 4, "성배", "뱀파이어");
-	}
+	   // 전투 - 사신
+	   public void fight6(int num) {
+	      fight(num, 6, "성배", "사신");
+	   }
 
-	// 전투 - 골렘
-	public void fight5(int num) {
-		fight(num, 5, "골렘");
-	}
+	   // 전투 - 마왕
+	   public void fight7(int num) {
+	      fight(num, 7, "마왕");
+	   }
 
-	// 전투 - 사신
-	public void fight6(int num) {
-		fight(num, 6, "성배", "사신");
-	}
-
-	// 전투 - 마왕
-	public void fight7(int num) {
-		fight(num, 7, "마왕");
-	}
-
-	// 전투 - 드래곤
-	public void fight8(int num) {
-		fight(num, 8, "창", "드래곤");
-	}
+	   // 전투 - 드래곤
+	   public void fight8(int num) {
+	      fight(num, 8, "창", "드래곤");
+	   }
 
 	// 점수계산
 	public void score() {

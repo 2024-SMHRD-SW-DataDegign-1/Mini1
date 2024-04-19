@@ -19,13 +19,18 @@ public class Main {
 		
 		DungeonBgm DBgm = new DungeonBgm();
 		
+		Game fst = new Game();
+		
 		String AAA = "";
 		String BBB = "";
 		int num = 0;
+		fst.aArt();
 		while (true) {
 			DBgm.logBgm();
-			System.out.print("1. 로그인 2. 회원가입 3. 게임소개 4. 게임 종료 ");
+			System.out.println();
+			System.out.print("1. 로그인 2. 회원가입 3. 게임소개 4. 게임 종료 >> ");
 			int menu = sc.nextInt();
+			System.out.println();
 
 			if (menu == 1) {
 				// 로그인
@@ -43,7 +48,10 @@ public class Main {
 					if (name.equals("")) {
 						System.out.println("ID 또는 PW가 일치하지 않습니다.");
 					} else {
+						System.out.println();
 						System.out.println("로그인 성공!");
+						System.out.println();
+						System.out.println();
 						System.out.println("용사 " + name + "님 환영합니다");
 						break;
 					}
@@ -95,14 +103,15 @@ public class Main {
 
 			while (true) {
 				DBgm.bgmOn();
-				System.out.print("1. 모험 시작 2. 랭킹보기 3. 몬스터정보 4. 아이템 정보 5. 회원 탈퇴 6. 게임 종료 ");
+				System.out.println();
+				System.out.print("1. 모험 시작 2. 랭킹보기 3. 몬스터정보 4. 아이템 정보 5. 회원 탈퇴 6. 게임 종료 >> ");
 				int menu2 = sc.nextInt();
 
 				if (menu2 == 1) {
 					num = 2;
 					Random ran = new Random();
 
-					Game fst = new Game();
+					fst = new Game();
 
 					int turn = 1;
 					int lastScore = 0;
@@ -111,7 +120,6 @@ public class Main {
 					boolean alive = true; // 생사여부 반환
 					ArrayList<Integer> monsterList = new ArrayList<Integer>(); // 사냥한 몬스터 종류 반환을 위한 Alist
 
-					fst.aArt();
 					for (int round = 1; round < 3; round++) {
 						// 카드 목록, 장비 초기값 입력
 						fst.fstList();
@@ -119,13 +127,14 @@ public class Main {
 						System.out.println(round + " 라운드 시작");
 						System.out.println("- - - - - turn " + turn + " - - - - -");
 						fst.print();
+						System.out.println();
 
 						// 첫 카드 세 장 뽑기
 						fst.drawFst();
 
 						// 정렬상태 확인
-						System.out.print("\nnc 정렬\t: ");
-						fst.ncNow();
+//						System.out.print("\nnc 정렬\t: ");
+//						fst.ncNow();
 
 						// 게임 이용자에게 현재 카드 출력
 						fst.ncPrint(fst.getMid());
@@ -144,8 +153,8 @@ public class Main {
 							fst.arr();
 
 							// 정렬 상태 확인
-							System.out.print("nc 정렬\t: ");
-							fst.ncNow();
+//							System.out.print("nc 정렬\t: ");
+//							fst.ncNow();
 
 							// 게임 이용자에게 현재 카드 상태 출력
 							fst.ncPrint(fst.getMid());
@@ -192,81 +201,21 @@ public class Main {
 
 						System.out.println("\n\n전투를 시작합니다\n");
 
-						boolean temp=false;
-						
 						for (int i = 0; i < fst.ncLength(); i++) {
-							fst.fight1(i);
-							if(fst.ncGet(i)!=0) {
-								temp=true;
-							}
-						}
-						if(temp==true) {
-							sc.nextLine();
-							sc.nextLine();
-							temp=false;
-						}
-
-						for (int i = 0; i < fst.ncLength(); i++) {
-							fst.fight2(i);
-							if(fst.ncGet(i)!=0) {
-								temp=true;
-							}
-						}
-						if(temp==true) {
-							sc.nextLine();
-							temp=false;
-						}
-						
-						for (int i = 0; i < fst.ncLength(); i++) {
-							fst.fight3(i);
-							if(fst.ncGet(i)!=0) {
-								temp=true;
-							}
-						}
-						if(temp==true) {
-							sc.nextLine();
-							temp=false;
-						}
-						
-
-						for (int i = 0; i < fst.ncLength(); i++) {
-							fst.fight4(i);
-							if(fst.ncGet(i)!=0) {
-								temp=true;
-							}
-						}
-						if(temp==true) {
-							sc.nextLine();
-							temp=false;
-						}
-						
-						
-						for (int i = 0; i < fst.ncLength(); i++) {
-							fst.fight5(i);
-							if(fst.ncGet(i)!=0) {
-								temp=true;
-							}
-						}
-						sc.nextLine();
-						
-						for (int i = 0; i < fst.ncLength(); i++) {
-							fst.fight6(i);
-						}
-						sc.nextLine();
-						
-						for (int i = 0; i < fst.ncLength(); i++) {
-							fst.fight7(i);
-						}
-						
-						sc.nextLine();
-						for (int i = 0; i < fst.ncLength(); i++) {
-							fst.fight8(i);
-						}
+				            fst.fight1(i);
+				            fst.fight2(i);
+				            fst.fight3(i);
+				            fst.fight4(i);
+				            fst.fight5(i);
+				            fst.fight6(i);
+				            fst.fight7(i);
+				            fst.fight8(i);
+				         }
 
 						// - - - - - - - - - - - - - - -- - - - - - - -- -- - - -- -- - -- - //
 
 						if (fst.getHp() > 0) {
-							System.out.println("던전을 클리어했습니다!");
+							System.out.println("던전을 클리어했습니다 ㅇㅅㅇ");
 							System.out.println("- - - - - - - -");
 							System.out.print("잡은 몬스터\t: ");
 							fst.ncName();
@@ -292,9 +241,11 @@ public class Main {
 								int row = dao.insertScore(AAA, BBB, lastScore);
 								
 								if (row > 0) {
+									System.out.println();
 									System.out.println("랭킹등록 성공! :)");
 									
 								} else {
+									System.out.println();
 									System.out.println("랭킹등록 오류 ㅠ");
 								}
 								} catch (Exception e) {
@@ -321,6 +272,7 @@ public class Main {
 				}
 
 				else if (menu2 == 2) {
+					System.out.println();
 					System.out.println("      <<< 랭킹 보기 >>> ");
 					try {
 						ArrayList<MiniRank> resultList = dao.userScore();
@@ -340,10 +292,13 @@ public class Main {
 					}
 
 				} else if (menu2 == 3) {
+					System.out.println();
 					dao.monsterExplain();
 				} else if (menu2 == 4) {
+					System.out.println();
 					dao.itemExplain();
 				} else if (menu2 == 5) {
+					System.out.println();
 					System.out.print("정말로 삭제하시겠습니까?  [1]예 [2]아니오 ");
 					int num1 = sc.nextInt();
 					if (num1 == 1) {
