@@ -11,6 +11,7 @@ import java.util.Scanner;
 import Mini1.MiniDTO;
 
 public class MiniDAO {
+
 	// DAO : Data Access Object (실제 데이터에 접근할 수 있는 객체)
 		// DB 에 관련된 기능들을 전부 가지고 있는 클래스 
 		Connection conn = null;
@@ -112,7 +113,7 @@ public class MiniDAO {
 		public ArrayList<MiniRank> userScore() {
 			// 사람 한 명의 데이터 DTO를 담고 있는 ArrayList를 리턴할 거야.
 			
-			String sql = "SELECT *  FROM RANKING ORDER BY SCORE DESC";
+			String sql = "SELECT *  FROM RANKING WHERE SCORE > 0 ORDER BY SCORE DESC";
 			ResultSet rs = null;
 			// ResultSet : select 절을 통한 테이블 형식 데이터를 받아 올 수 있는 타입
 			
@@ -132,18 +133,17 @@ public class MiniDAO {
 				psmt = conn.prepareStatement(sql);
 				
 				rs = psmt.executeQuery();
-				// executeQuery --> 쿼리문을 통해서 테이블에 있는 데이터에 영향을 끼치지 않을 때 사용되어진다.
-				// 실행하게 되면 ResultSet 자료형의 rs 는 ID PW NAME AGE 행이 된다.
 				
+				int ranking = 1;
 				while(rs.next()) {
 					String id = rs.getString(1);
 					String name = rs.getString(2);
 					int score = rs.getInt(3);
 					// 조회해온 결과(rs)에 담겨있는 데이터를 DTO에 옮겨서 하나로 묶어줌
-					rank = new MiniRank(id, name, score);
-					
+					rank = new MiniRank(ranking, id, name, score);
 					// ArrayList 이용해서 모든 회원 하나로 묶어주기
 					list.add(rank);
+					ranking++;
 					
 //					System.out.println("ID : "+id+" PW : "+pw+" NAME : "+name+" AGE : "+age);
 				}
