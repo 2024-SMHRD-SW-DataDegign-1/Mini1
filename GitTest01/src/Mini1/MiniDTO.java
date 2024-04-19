@@ -1,7 +1,6 @@
 package Mini1;
 
 public class MiniDTO {
-
 	// 1. 필드
 	private String id;
 	private String pw;

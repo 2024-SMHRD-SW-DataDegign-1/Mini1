@@ -11,7 +11,6 @@ import java.util.Scanner;
 import Mini1.MiniDTO;
 
 public class MiniDAO {
-
 	// DAO : Data Access Object (실제 데이터에 접근할 수 있는 객체)
 		// DB 에 관련된 기능들을 전부 가지고 있는 클래스 
 		Connection conn = null;

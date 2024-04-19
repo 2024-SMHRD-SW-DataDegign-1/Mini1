@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class MiniRank {
-
 	private String id;
 	private String name;
 	private int score;
