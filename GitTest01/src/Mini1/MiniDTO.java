@@ -1,12 +1,7 @@
-package Minip;
+package Mini1;
 
 public class MiniDTO {
 
-	// DTO (Data Transfer Object)
-	// : 데이터를 이동할 수 있게 하는 나만의 자료형
-	// : Table 마다 한개씩
-	// : Table 의 컬럼을 필드로 가진다.
-	
 	// 1. 필드
 	private String id;
 	private String pw;

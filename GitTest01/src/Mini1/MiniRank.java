@@ -1,18 +1,18 @@
-package Minip;
+package Mini1;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class MiniRank {
-	
+
 	private String id;
 	private String name;
 	private int score;
 
 	Connection conn = null;
 	PreparedStatement psmt = null;
-	
+
 	public MiniRank(String id, String name, int score) {
 		super();
 		this.id = id;
@@ -47,21 +47,4 @@ public class MiniRank {
 		this.score = score;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

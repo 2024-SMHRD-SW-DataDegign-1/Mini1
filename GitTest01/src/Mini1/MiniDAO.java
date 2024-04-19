@@ -1,4 +1,4 @@
-package Minip;
+package Mini1;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,8 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-import Minip.MiniDTO;
+import Mini1.MiniDTO;
 
 public class MiniDAO {
 
@@ -15,7 +16,7 @@ public class MiniDAO {
 		// DB 에 관련된 기능들을 전부 가지고 있는 클래스 
 		Connection conn = null;
 		PreparedStatement psmt = null;
-		
+		Scanner sc = new Scanner(System.in);
 		// 연결
 		public void conn() {
 		// 리턴값이 필요 없음
@@ -190,7 +191,7 @@ public class MiniDAO {
 			
 		}
 		
-		// 회원 정보 삭제
+		// 회원 탈퇴
 		public int deleteUser (String deleteID) {
 			
 			String sql = "DELETE FROM USER_INFO WHERE ID = ?";
@@ -206,7 +207,7 @@ public class MiniDAO {
 				if (row > 0 ) {
 					System.out.println("회원삭제 완료");
 				} else {
-					System.out.println("회원삭제 실패");
+					System.out.println("등록된 회원이 아닙니다");
 				}
 				
 			} catch (Exception e) {
@@ -217,4 +218,120 @@ public class MiniDAO {
 			
 		}
 		
+		// 랭킹 삭제
+		// 회원 정보 삭제
+		public int deleteScore (String deleteID) {
+			
+			String sql = "DELETE FROM RANKING WHERE ID = ?";
+			int row = 0;
+			
+			try {
+				psmt = conn.prepareStatement(sql);
+				
+				psmt.setString(1, deleteID);
+				
+				row = psmt.executeUpdate();
+				
+				if (row > 0 ) {
+					System.out.println("랭킹삭제 완료");
+				} else {
+					System.out.println("랭킹이 등록되어 있지 않습니다.");
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return row;
+			
+		}
+		
+		// 유저 점수 등록하기
+		public int insertScore (String id, String name, int score) {
+			
+			String sql = "INSERT INTO RANKING VALUES(?, ?, ?)";
+			int row = 0;
+
+			try {
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, id);
+				psmt.setString(2, name);
+				psmt.setInt(3, score);
+				
+				row = psmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return row;
+			
+		}
+		
+		// 설명
+		public void explain() {
+			
+			System.out.println();
+			System.out.println("          <<< 세계관 >>>");
+			System.out.println();
+			System.out.println("시민들의 땅 맨덤(Mandom)은 던전의 몬스터들에게 위협받고 있다.");
+			System.out.println("당신은 용사가 되어 이들을 무찔러야 한다.");
+			System.out.println("용사가 가져갈 수 있는 아이템은 한정적");
+			System.out.println("당신은 던전을 정복하고 승자가 될 수 있을 것인가?");
+			System.out.println();
+			System.out.println("Press Enter!");
+			sc.nextLine();
+
+			System.out.println("<<<<< 게임 방법 >>>>>");
+			System.out.println();
+			System.out.println("1. 몬스터 3마리를 조우하고 기준 몬스터 정체 공개");
+			System.out.println();
+			sc.nextLine();
+			System.out.println("2. 기준 몬스터를 기준으로 나머지 몬스터는 서열대로 정렬된다");
+			System.out.println("  예) 7 , 5, 2 이라면 가운데 5가 기준몬스터가 되고");
+			System.out.println("     2, 5, 7 순서대로 놓여지게 된다. 2,7은 공개되지 않는다.");
+			System.out.println();
+			sc.nextLine();
+			System.out.println("3. 던전탐사 / 전투진행 중 액션을 선택한다.");
+			System.out.println("   던전탐사 시 몬스터 2마리를 추가로 조우한다.");
+			System.out.println("   이때 몬스터에게 아이템을 탈튀당할 수도 있다.");
+			System.out.println("   참고) 시작 시 모든 아이템을 가지고 시작한다.");
+			System.out.println();
+			sc.nextLine();
+			System.out.println("4. 전투진행");
+			System.out.println("   전투진행 시 그동안 나온 몬스터들과 전투를 진행한다.");
+			System.out.println("   유저의 선공으로 시작되며 해당하는 무기가 있으면 몬스터를 일격에 제압한다.");
+			System.out.println("   무기가 없다면 몸으로 맞게 되며 몬스터의 전투력()만큼 HP를 잃는다.");
+			System.out.println();
+			sc.nextLine();
+			System.out.println("5. 전투결과");
+			System.out.println("   몬스터가 모두 죽으면 VICTORY 승리한다.");
+			System.out.println("   점수창에 기록되며 HISTORY 일지에 정보가 입력된다.");
+			System.out.println("   유저의 HP 가 모두 소진되면 GAME OVER 패배한다.");
+			System.out.println("   패배시 0점 처리된다.");
+			System.out.println();
+			sc.nextLine();
+			
+		}
+		
+		public void monsterExplain() {
+			System.out.println("<<<<< 몬스터 정보 >>>>>");
+			System.out.println("고블린(1)   : 공격력 1 / 몬스터 수 2");
+			System.out.println("해골전사(2)  : 공격력 2 / 몬스터 수 2");
+			System.out.println("오크(3)     : 공격력 3 / 몬스터 수 2");
+			System.out.println("뱀파이어(4)  : 공격력 4 / 몬스터 수 2");
+			System.out.println("골렘(5)     : 공격력 5 / 몬스터 수 2");
+			System.out.println("사신(6)     : 공격력 6 / 몬스터 수 1");
+			System.out.println("마왕(7)     : 공격력 7 / 몬스터 수 1");
+			System.out.println("드래곤(8)    : 공격력 9 / 몬스터 수 1");
+		}
+		
+		public void itemExplain() {
+			System.out.println("<<<<< 아이템 정보 >>>>>");
+			System.out.println("갑옷 : 용사의 체력을 5만큼 늘려준다.");
+			System.out.println("방패 : 용사의 체력을 3만큼 늘려준다.");
+			System.out.println("횃불 : 고블린(1), 해골전사(2), 오크(3)을 모두 제거한다.");
+			System.out.println("성배 : 해골전사(2), 뱀파이어(4), 사신(6)을 모두 제거한다.");
+			System.out.println("창 : 드래곤(8)을 제거한다.");
+			System.out.println("검 : 원하는 몬스터 1종류를 모두 제거한다.");
+		}
 }
