@@ -14,11 +14,9 @@ public class Game extends List {
 	private int[] tempArray = new int[3]; // 임시 숫자 저장
 
 	private int hp = 3;
-
 	public int getHp() {
 		return hp;
 	}
-
 	public void setHp(int hp) {
 		this.hp = hp;
 	}

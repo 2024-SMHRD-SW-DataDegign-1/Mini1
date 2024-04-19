@@ -3,6 +3,7 @@ package Mini1;
 import java.util.ArrayList;
 
 public class List {
+	
 	   private ArrayList<Integer> nowCard = new ArrayList<Integer>();
 
 	   public void ncAdd(int num) {
