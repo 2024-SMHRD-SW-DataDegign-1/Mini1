@@ -1,10 +1,10 @@
-package Mini_1;
+package Minip;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Class {
+public class Game {
 	String[] cardList = { "고블린", "해골전사", "오크", "뱀파이어", "골렘", "사신", "마왕", "드래곤" };
 
 	String[] cardListName = { "고블린", "고블린", "해골전사", "해골전사", "오크", "오크", "뱀파이어", "뱀파이어", "골렘", "골렘", "사신", "마왕", "드래곤" };
