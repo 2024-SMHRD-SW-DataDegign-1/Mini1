@@ -12,88 +12,93 @@ import Mini1.MiniRank;
 public class Main {
 
 	public static void main(String[] args) {
-		
+
 		Scanner sc = new Scanner(System.in);
 
 		MiniDAO dao = new MiniDAO();
-
+		
+		DungeonBgm DBgm = new DungeonBgm();
+		
 		String AAA = "";
 		String BBB = "";
 		int num = 0;
-//		while (true) {
-//			System.out.print("1. 로그인 2. 회원가입 3. 게임소개 4. 게임 종료 ");
-//			int menu = sc.nextInt();
-//
-//			if (menu == 1) {
-//				// 로그인
-//				try {
-//					System.out.print("ID 입력 >> ");
-//					String inputId = sc.next();
-//					System.out.print("PW 입력 >> ");
-//					String inputPw = sc.next();
-//
-//					dao.conn();
-//
-//					String name = dao.loginUser(inputId, inputPw);
-//					AAA = inputId;
-//					BBB = name;
-//					if (name.equals("")) {
-//						System.out.println("ID 또는 PW가 일치하지 않습니다.");
-//					} else {
-//						System.out.println("로그인 성공!");
-//						System.out.println("용사 " + name + "님 환영합니다");
-//						break;
-//					}
-//
-//				} catch (Exception e) {
-//
-//				} finally {
-//					dao.dbClose();
-//					num = 1;
-//				}
-//
-//			} else if (menu == 2) {
-//				try {
-//					// 회원가입
-//					System.out.print("ID 입력 : ");
-//					String id = sc.next();
-//					System.out.print("PW 입력 : ");
-//					String pw = sc.next();
-//					System.out.print("닉네임 입력 : ");
-//					String name = sc.next();
-//
-//					dao.conn();
-//
-//					int row = dao.insertUser(id, pw, name);
-//
-//					if (row > 0) {
-//						System.out.println("회원가입 성공! :)");
-//					} else {
-//						System.out.println("회원가입 실패ㅠㅠ");
-//					}
-//
-//				} catch (Exception e) {
-//				} finally {
-//					dao.dbClose();
-//				}
-//			} else if (menu == 3) {
-//				dao.explain();
-//			}
-//
-//			else if (menu == 4) {
-//				// 프로그램 종료
-//				System.out.println("게임이 종료되었습니다.");
-//				break;
-//			}
-//
-//		}
-//		if (num == 1) {
+		while (true) {
+			DBgm.logBgm();
+			System.out.print("1. 로그인 2. 회원가입 3. 게임소개 4. 게임 종료 ");
+			int menu = sc.nextInt();
 
-//			while (true) {
-//				System.out.print("1. 모험 시작 2. 랭킹보기 3. 몬스터정보 4. 아이템 정보 5. 회원 탈퇴 6. 게임 종료 ");
-//				int menu2 = sc.nextInt();
-//
-//				if (menu2 == 1) {
+			if (menu == 1) {
+				// 로그인
+				try {
+					System.out.print("ID 입력 >> ");
+					String inputId = sc.next();
+					System.out.print("PW 입력 >> ");
+					String inputPw = sc.next();
+
+					dao.conn();
+
+					String name = dao.loginUser(inputId, inputPw);
+					AAA = inputId;
+					BBB = name;
+					if (name.equals("")) {
+						System.out.println("ID 또는 PW가 일치하지 않습니다.");
+					} else {
+						System.out.println("로그인 성공!");
+						System.out.println("용사 " + name + "님 환영합니다");
+						break;
+					}
+
+				} catch (Exception e) {
+
+				} finally {
+					dao.dbClose();
+					num = 1;
+				}
+
+			} else if (menu == 2) {
+				try {
+					// 회원가입
+					System.out.print("ID 입력 : ");
+					String id = sc.next();
+					System.out.print("PW 입력 : ");
+					String pw = sc.next();
+					System.out.print("닉네임 입력 : ");
+					String name = sc.next();
+
+					dao.conn();
+
+					int row = dao.insertUser(id, pw, name);
+
+					if (row > 0) {
+						System.out.println("회원가입 성공! :)");
+					} else {
+						System.out.println("회원가입 실패ㅠㅠ");
+					}
+
+				} catch (Exception e) {
+				} finally {
+					dao.dbClose();
+				}
+			} else if (menu == 3) {
+				dao.explain();
+			}
+
+			else if (menu == 4) {
+				// 프로그램 종료
+				System.out.println("게임이 종료되었습니다.");
+				DBgm.bgmOff();
+				break;
+			}
+
+		}
+		if (num == 1) {
+
+			while (true) {
+				DBgm.bgmOn();
+				System.out.print("1. 모험 시작 2. 랭킹보기 3. 몬스터정보 4. 아이템 정보 5. 회원 탈퇴 6. 게임 종료 ");
+				int menu2 = sc.nextInt();
+
+				if (menu2 == 1) {
 					num = 2;
 					Random ran = new Random();
 
@@ -187,97 +192,75 @@ public class Main {
 
 						System.out.println("\n\n전투를 시작합니다\n");
 
-						boolean temp00=false;
+						boolean temp=false;
 						
 						for (int i = 0; i < fst.ncLength(); i++) {
 							fst.fight1(i);
-							if(fst.ncGet(i)==1) {
-								temp00=true;
+							if(fst.ncGet(i)!=0) {
+								temp=true;
 							}
 						}
-						if(temp00==true) {
+						if(temp==true) {
 							sc.nextLine();
-							temp00=false;
+							sc.nextLine();
+							temp=false;
 						}
-						// - //
+
 						for (int i = 0; i < fst.ncLength(); i++) {
 							fst.fight2(i);
-							if(fst.ncGet(i)==2) {
-								temp00=true;
+							if(fst.ncGet(i)!=0) {
+								temp=true;
 							}
 						}
-						if(temp00==true) {
+						if(temp==true) {
 							sc.nextLine();
-							temp00=false;
+							temp=false;
 						}
-						// - //
+						
 						for (int i = 0; i < fst.ncLength(); i++) {
 							fst.fight3(i);
-							if(fst.ncGet(i)==3) {
-								temp00=true;
+							if(fst.ncGet(i)!=0) {
+								temp=true;
 							}
 						}
-						if(temp00==true) {
+						if(temp==true) {
 							sc.nextLine();
-							temp00=false;
+							temp=false;
 						}
-						// - //
+						
+
 						for (int i = 0; i < fst.ncLength(); i++) {
 							fst.fight4(i);
-							if(fst.ncGet(i)==4) {
-								temp00=true;
+							if(fst.ncGet(i)!=0) {
+								temp=true;
 							}
 						}
-						if(temp00==true) {
+						if(temp==true) {
 							sc.nextLine();
-							temp00=false;
+							temp=false;
 						}
-						// - //
+						
+						
 						for (int i = 0; i < fst.ncLength(); i++) {
 							fst.fight5(i);
-							if(fst.ncGet(i)==5) {
-								temp00=true;
+							if(fst.ncGet(i)!=0) {
+								temp=true;
 							}
 						}
-						if(temp00==true) {
-							sc.nextLine();
-							temp00=false;
-						}
-						// - //
+						sc.nextLine();
 						
 						for (int i = 0; i < fst.ncLength(); i++) {
 							fst.fight6(i);
-							if(fst.ncGet(i)==6) {
-								temp00=true;
-							}
 						}
-						if(temp00==true) {
-							sc.nextLine();
-							temp00=false;
-						}
-						// - //
+						sc.nextLine();
 						
 						for (int i = 0; i < fst.ncLength(); i++) {
 							fst.fight7(i);
-							if(fst.ncGet(i)==7) {
-								temp00=true;
-							}
 						}
-						if(temp00==true) {
-							sc.nextLine();
-							temp00=false;
-						}
-						// - //
 						
+						sc.nextLine();
 						for (int i = 0; i < fst.ncLength(); i++) {
 							fst.fight8(i);
-							if(fst.ncGet(i)==8) {
-								temp00=true;
-							}
-						}
-						if(temp00==true) {
-							sc.nextLine();
-							temp00=false;
 						}
 
 						// - - - - - - - - - - - - - - -- - - - - - - -- -- - - -- -- - -- - //
@@ -310,6 +293,7 @@ public class Main {
 								
 								if (row > 0) {
 									System.out.println("랭킹등록 성공! :)");
+									
 								} else {
 									System.out.println("랭킹등록 오류 ㅠ");
 								}
@@ -325,7 +309,7 @@ public class Main {
 							fst.setTemp(0); // 0점
 							alive = false; // 생사여부 반환을 위해 저장
 							turn = 1;
-							System.out.println("체력이 0 이하가 되어 패배합니다...\n");
+							System.out.println("패배 ㅋㅅㅋ\n");
 						}
 
 						fst.rcReset();
@@ -335,63 +319,65 @@ public class Main {
 
 					}
 				}
-//
-//				else if (menu2 == 2) {
-//					System.out.println("      <<< 랭킹 보기 >>> ");
-//					try {
-//						ArrayList<MiniRank> resultList = dao.userScore();
-//
-//						System.out.println("아이디 \t 닉네임 \t 점수");
-//
-//						for (MiniRank d : resultList) {
-//							System.out.print(d.getId() + "\t");
-//							System.out.print(d.getName() + "\t");
-//							System.out.print(d.getScore());
-//							System.out.println();
-//						}
-//
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//					}
-//
-//				} else if (menu2 == 3) {
-//					dao.monsterExplain();
-//				} else if (menu2 == 4) {
-//					dao.itemExplain();
-//				} else if (menu2 == 5) {
-//					System.out.print("정말로 삭제하시겠습니까?  [1]예 [2]아니오 ");
-//					int num1 = sc.nextInt();
-//					if (num1 == 1) {
-//						String deleteID = AAA;
-//
-//						String sql = "DELETE FROM USER_INFO WHERE ID = ?";
-//						int row = 0;
-//
-//						try {
-//							dao.conn();
-//
-//							dao.deleteScore(deleteID);
-//
-//							dao.deleteUser(deleteID);
-//
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//						} finally {
-//							dao.dbClose();
-//							System.out.println("게임이 종료됩니다.");
-//							break;
-//						}
-//					} else {
-//						System.out.println("계속 이용해주셔서 감사합니다.");
-//					}
-//				} else if (menu2 == 6) {
-//					System.out.println("게임이 종료되었습니다.");
-//					break;
-//				}
-//
-//			}
+
+				else if (menu2 == 2) {
+					System.out.println("      <<< 랭킹 보기 >>> ");
+					try {
+						ArrayList<MiniRank> resultList = dao.userScore();
+
+						System.out.println("순위 \t 아이디 \t 닉네임 \t 점수");
+
+						for (MiniRank d : resultList) {
+							System.out.print("  "+d.getRanking() + "\t");
+							System.out.print(d.getId() + "\t");
+							System.out.print(" "+d.getName() + "\t");
+							System.out.print(" "+ d.getScore());
+							System.out.println();
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+				} else if (menu2 == 3) {
+					dao.monsterExplain();
+				} else if (menu2 == 4) {
+					dao.itemExplain();
+				} else if (menu2 == 5) {
+					System.out.print("정말로 삭제하시겠습니까?  [1]예 [2]아니오 ");
+					int num1 = sc.nextInt();
+					if (num1 == 1) {
+						String deleteID = AAA;
+
+						String sql = "DELETE FROM USER_INFO WHERE ID = ?";
+						int row = 0;
+
+						try {
+							dao.conn();
+
+							dao.deleteScore(deleteID);
+
+							dao.deleteUser(deleteID);
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						} finally {
+							dao.dbClose();
+							System.out.println("게임이 종료됩니다.");
+							break;
+						}
+					} else {
+						System.out.println("계속 이용해주셔서 감사합니다.");
+					}
+				} else if (menu2 == 6) {
+					System.out.println("게임이 종료되었습니다.");
+					DBgm.bgmOff();
+					break;
+				}
+
+			}
 
 		}
 
-//	}
-//}
+	}
+}
