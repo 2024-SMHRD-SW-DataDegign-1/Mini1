@@ -15,6 +15,14 @@ public class Game extends List {
 
 	private int hp = 3;
 
+	// 전투 - 개행
+		public void enter() {
+			if (getTemp() == 1) {
+				sc.nextLine();
+				setTemp(0);
+			}
+		}
+		
 	public int getHp() {
 		return hp;
 	}
@@ -296,43 +304,61 @@ public class Game extends List {
 		}
 	}
 
-	// 장비 선택 삭제
-	   public void selItem() {
-	      System.out.println("보유한 장비가 적을 수록 점수 획득에 유리합니다.");
-	      System.out.println("6개 : 점수 1배\t3개 : 점수 4배");
-	      System.out.println("5개 : 점수 2배\t2개 : 점수 5배");
-	      System.out.println("4개 : 점수 3배\t1개 : 점수 6배");
-	      System.out.print("현재 장비\t : ");
-	      niNow();
-	      System.out.print("\n\n그냥 진행한다 : 0\t장비를 버린다 : 1 >> ");
-	      temp = sc.nextInt();
-	      if (temp != 0 && temp != 1) {
-	         while (temp != 0 && temp != 1) {
-	            System.out.print("0이나 1을 입력해주세요 >> ");
-	            temp = sc.nextInt();
-	         }
-	      }
-	      if(temp==1) {
-	         System.out.print("버릴 아이템 수를 입력해주세요 >> ");
-	         temp = sc.nextInt();
-	         while (temp<=0||temp>niLength()) {
-	            System.out.print("버릴 수 있는 아이템 수에서 입력해주세요 >> ");
-	            temp=sc.nextInt();
-	         }
-	         System.out.println();
-	         ncPrint(mid);
-	         // 장비 설명 출력
-	         itemInfo();
-	         for(int i=0;i<temp;i++) {
-	            System.out.print("현재 장비\t: ");
-	            niNow();
-	            System.out.println();
-	            delItem0();
-	         }
-	      }
-	      temp=0;
-	      System.out.println();
-	   }
+	// 입력받은 값이 0, 1이 맞을때까지 다시 입력받는 메소드
+		public void reInput() {
+			tempString = sc.next();
+			while (!tempString.equals("0") && !tempString.equals("1")) {
+				System.out.print("0이나 1을 입력해주세요 >> ");
+				tempString = sc.next();
+			}
+			temp = Integer.parseInt(tempString);
+			tempString = "";
+		}
+
+		// 장비 선택 삭제
+		public void selItem() {
+			System.out.println("보유한 장비가 적을 수록 점수 획득에 유리합니다.");
+			System.out.println("6개 : 점수 1배\t3개 : 점수 4배");
+			System.out.println("5개 : 점수 2배\t2개 : 점수 5배");
+			System.out.println("4개 : 점수 3배\t1개 : 점수 6배");
+			System.out.print("현재 장비\t : ");
+			niNow();
+			System.out.print("\n\n그냥 진행한다 : 0\t장비를 버린다 : 1 >> ");
+
+			reInput();
+
+			if (temp == 1) {
+				System.out.print("버릴 아이템 수를 입력해주세요 >> ");
+				tempString = sc.next();
+				
+				while(!tempString.equals("1") && !tempString.equals("2") && !tempString.equals("3")
+						&& !tempString.equals("4") && !tempString.equals("5") && !tempString.equals("6")) {
+					System.out.print("버릴 수 있는 아이템 수를 입력해주세요 >> ");
+					tempString = sc.next();
+					
+					if(tempString.equals("1") || tempString.equals("2") || tempString.equals("3")
+							|| tempString.equals("4") || tempString.equals("5") || tempString.equals("6")) {
+						temp = Integer.parseInt(tempString);
+						if (temp > niLength()) {
+							tempString="";
+						}
+					}
+				}
+				
+				System.out.println();
+				ncPrint(mid);
+				// 장비 설명 출력
+				itemInfo();
+				for (int i = 0; i < temp; i++) {
+					System.out.print("현재 장비\t: ");
+					niNow();
+					delItem0();
+					System.out.println();
+				}
+			}
+			temp = 0;
+			tempString="";
+		}
 
 
 	// 게임 이용자에게 현재 카드 출력
