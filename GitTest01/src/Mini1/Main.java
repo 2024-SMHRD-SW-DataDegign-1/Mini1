@@ -110,8 +110,8 @@ public class Main {
 				if (menu2 == 1) {
 					num = 2;
 					Random ran = new Random();
-
-					fst = new Game();
+					
+//					Game fst = new Game();
 
 					int turn = 1;
 					int lastScore = 0;
@@ -120,6 +120,7 @@ public class Main {
 					boolean alive = true; // 생사여부 반환
 					ArrayList<Integer> monsterList = new ArrayList<Integer>(); // 사냥한 몬스터 종류 반환을 위한 Alist
 
+					// 게임 시작
 					for (int round = 1; round < 3; round++) {
 						// 카드 목록, 장비 초기값 입력
 						fst.fstList();
@@ -139,9 +140,10 @@ public class Main {
 						// 게임 이용자에게 현재 카드 출력
 						fst.ncPrint(fst.getMid());
 						System.out.println();
-						fst.goStop();
+						fst.goStop(); // temp가 0이 아니면 while문으로 들어감
 
-						// ----------------------------------------------------------------- //
+						// -------------------------------------------------------------------------------------
+						// //
 
 						while (fst.getTemp() != 0) {
 							turn++;
@@ -171,8 +173,8 @@ public class Main {
 						}
 						fst.setTemp(0);
 
-						// - -------------------------------------------------------- //
-
+						// -------------------------------------------------------------------------------------
+						// //
 						System.out.println("\n- - - - - 전투 시작 - - - - -");
 						// 잡은 몬스터 리스트 반환을 위해 저장
 						monsterList = fst.ncLast();
@@ -199,20 +201,81 @@ public class Main {
 						System.out.print("현재 장비\t: ");
 						fst.niNow();
 
+						// -------------------------------------------------------------------------------------
+						// //
+
 						System.out.println("\n\n전투를 시작합니다\n");
+						fst.setTemp(0);
 
 						for (int i = 0; i < fst.ncLength(); i++) {
-				            fst.fight1(i);
-				            fst.fight2(i);
-				            fst.fight3(i);
-				            fst.fight4(i);
-				            fst.fight5(i);
-				            fst.fight6(i);
-				            fst.fight7(i);
-				            fst.fight8(i);
-				         }
+							fst.fight1(i);
+							if (fst.ncGet(i) == 1 && fst.getHp() > 0) {
+								fst.setTemp(1);
+							}
+						}
+						// 전투 개행
+						fst.enter();
+						fst.setTemp(1);
+						fst.enter();
 
-						// - - - - - - - - - - - - - - -- - - - - - - -- -- - - -- -- - -- - //
+						for (int i = 0; i < fst.ncLength(); i++) {
+							fst.fight2(i);
+							if (fst.ncGet(i) == 2 && fst.getHp() > 0) {
+								fst.setTemp(1);
+							}
+						}
+						fst.enter();
+
+						for (int i = 0; i < fst.ncLength(); i++) {
+							fst.fight3(i);
+							if (fst.ncGet(i) == 3 && fst.getHp() > 0) {
+								fst.setTemp(1);
+							}
+						}
+						fst.enter();
+						
+						for (int i = 0; i < fst.ncLength(); i++) {
+							fst.fight4(i);
+							if (fst.ncGet(i) == 4 && fst.getHp() > 0) {
+								fst.setTemp(1);
+							}
+						}
+						fst.enter();
+
+						for (int i = 0; i < fst.ncLength(); i++) {
+							fst.fight5(i);
+							if (fst.ncGet(i) == 5 && fst.getHp() > 0) {
+								fst.setTemp(1);
+							}
+						}
+						fst.enter();
+
+						for (int i = 0; i < fst.ncLength(); i++) {
+							fst.fight6(i);
+							if (fst.ncGet(i) == 6 && fst.getHp() > 0) {
+								fst.setTemp(1);
+							}
+						}
+						fst.enter();
+
+						for (int i = 0; i < fst.ncLength(); i++) {
+							fst.fight7(i);
+							if (fst.ncGet(i) == 7 && fst.getHp() > 0) {
+								fst.setTemp(1);
+							}
+						}
+						fst.enter();
+
+						for (int i = 0; i < fst.ncLength(); i++) {
+							fst.fight8(i);
+							if (fst.ncGet(i) == 8 && fst.getHp() > 0) {
+								fst.setTemp(1);
+							}
+						}
+						fst.enter();
+
+						// -------------------------------------------------------------------------------------
+						// //
 
 						if (fst.getHp() > 0) {
 							System.out.println("던전을 클리어했습니다 ㅇㅅㅇ");
@@ -230,7 +293,7 @@ public class Main {
 							lastScore += fst.getTemp();
 							fst.setTemp(0);
 							turn = 1;
-							
+
 							if (round == 2) {
 								lastScore += fst.getTemp();
 								System.out.print("최종 점수 : " + lastScore);
@@ -253,7 +316,7 @@ public class Main {
 								} finally {
 									dao.dbClose();
 								}
-
+			//
 							}
 
 						} else {
@@ -263,11 +326,15 @@ public class Main {
 							System.out.println("패배 ㅋㅅㅋ\n");
 						}
 
+						fst.setHp(3);
 						fst.rcReset();
 						fst.riReset();
 						fst.ncReset();
 						fst.niReset();
-
+						if (round == 1) {
+							System.out.println("다음 라운드 >> ");
+						}
+						sc.nextLine();
 					}
 				}
 
